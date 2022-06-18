@@ -1,0 +1,18 @@
+
+.fotohead {
+    width: 20%;
+    height: 150px;
+}
+
+header > span {
+    position: relative;
+}
+
+#name {
+    bottom: 8px;
+    left: 16px;
+    font-family: 'Indie Flower', cursive;
+    opacity: 1;
+    font-size: 50px;
+}
+
