@@ -1,41 +1,41 @@
 package controller.admin;
 
-import com.google.gson.Gson;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import model.beans.Categoria;
+import model.beans.Message;
 import model.beans.Prodotto;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import static model.beans.MessageType.*;
 
 @WebServlet(name = "MostraProdottiServlet", value = "/MostraProdottiServlet")
 public class MostraProdottiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Categoria> categorie = new ArrayList<>();
-        categorie = (ArrayList<Categoria>) getServletContext().getAttribute("categorie");
+        String c = request.getParameter("categoria");
+        Message message = new Message("", "", INFO);
+
 
         ArrayList<Prodotto> prodotti = new ArrayList<>();
-        ArrayList<Prodotto> prodottiDef = new ArrayList<>();
-        for (Categoria c: categorie) {
-            String nome = "lista" + c.getNome();
+            String nome = "lista" + c;
             prodotti = (ArrayList<Prodotto>) getServletContext().getAttribute(nome);
-            if (prodotti != null) {
-               for (Prodotto p: prodotti) {
 
-                   prodottiDef.add(p);
-               }
-            }
+            if(prodotti == null) {
+                message.setType(ERROR);
+                message.setBody("Non è presente alcun prodotto.");
+                message.setTitle("Ops!");
+                request.setAttribute("message", message); }
+
+        request.setAttribute("prodotti", prodotti);
+        RequestDispatcher dispatcher =
+                request.getRequestDispatcher("/WEB-INF/results/admin/mostra_prodotti.jsp");
+        dispatcher.forward(request, response);
+
         }
-        PrintWriter out = new PrintWriter(response.getWriter());
-        Gson gson = new Gson();
-        String jsonProdotti = gson.toJson(prodottiDef);
-        out.write(jsonProdotti);
 
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

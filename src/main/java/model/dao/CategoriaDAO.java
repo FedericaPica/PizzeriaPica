@@ -33,4 +33,82 @@ public class CategoriaDAO {
         }
     }
 
+    public Categoria doRetrieveById(int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id, nome, priority FROM categoria WHERE id=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Categoria c = new Categoria();
+                c.setId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                c.setPriority(rs.getInt("priority"));
+                return c;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doUpdate(Categoria categoria) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE categoria SET nome=?, priority=? WHERE id=?");
+            ps.setString(1, categoria.getNome());
+            ps.setInt(2, categoria.getPriority());
+            ps.setInt(3, categoria.getId());
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("UPDATE error.");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doDelete(int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("DELETE FROM categoria WHERE id=?");
+            ps.setInt(1, id);
+            ps.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Categoria doRetrieveByPriority(int priority) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id, nome, priority FROM categoria WHERE priority=?");
+            ps.setInt(1, priority);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Categoria c = new Categoria();
+                c.setId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                c.setPriority(rs.getInt("priority"));
+                return c;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doIncreasePriority(int priority) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE categoria SET priority=priority+1 WHERE priority>=?");
+            ps.setInt(1, priority);
+            ps.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

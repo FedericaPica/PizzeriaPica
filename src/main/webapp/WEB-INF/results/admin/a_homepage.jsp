@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <%@ page import="model.beans.Message" %>
     <%@include file="../../../includes.html"%>
     <link rel="stylesheet" href="css/admin.css" type="text/css">
     <%@ page import="model.beans.Prodotto" %>
@@ -20,7 +21,6 @@
     <div class="col-t-4 col-4 elencoAdmin" >
         <div>
             <h3  id="categorieA"> Categorie</h3>
-            <h3 id="prodottiA">Prodotti</h3>
             <h3> Utenti</h3>
             <h3> Ordini </h3>
             <h3> Festivi</h3>
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div id="elenco2" class="col-8 col-t-8">
+    <div class="elenco2" class="col-8 col-t-8">
         <table id="mostra">
 
 
