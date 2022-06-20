@@ -1,3 +1,4 @@
+<%@ page import="model.beans.Message" %>
 <link rel="stylesheet" href="css/header.css" type="text/css">
 <header>
     <div>
@@ -8,3 +9,16 @@
         <img class="fotohead" src="images/locale2.jpeg">
     </div>
 </header>
+<% Message message = (Message) request.getAttribute("message");
+    if (message != null) { %>
+<script>
+    Swal.fire({
+        icon: '<%=message.getType().toLowerCase()%>',
+        title: '<%=message.getTitle()%>',
+        text: '<%=message.getBody()%>'
+    })
+</script>
+
+<%
+    }
+%>

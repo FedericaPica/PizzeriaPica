@@ -17,7 +17,7 @@ nav li {
     list-style: none;
     text-align: center;
 }
-.tilesWrap li {
+.tilesWrap li{
     display: inline-block;
     width: 80%;
     padding: 10px 10px 30px;
@@ -51,56 +51,7 @@ nav li {
     color: #A9BAC1;
     margin-top: 5px;
 }
-.carrelloButton {
-    background-color: black;
-    border: 2px outset #A9BAC1;
-    color: #F18F01;
-    padding: 5px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 13px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-/* .tilesWrap li button {
-    background: transparent;
-    border: 1px solid #b7b7b7;
-    padding: 10px 20px;
-    color: #b7b7b7;
-    border-radius: 3px;
-    position: relative;
-    transition: all 0.3s ease-in-out;
-    transform: translateY(-40px);
-    opacity: 0;
-    cursor: pointer;
-    overflow: hidden;
-}
-.tilesWrap li button:before {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 120%;
-    background: #b7b7b7;
-    top: 0;
-    opacity: 0;
-    left: -140px;
-    border-radius: 0 20px 20px 0;
-    z-index: -1;
-    transition: all 0.3s ease-in-out;
 
-}
-.tilesWrap li:hover button {
-    transform: translateY(5px);
-    opacity: 1;
-}
-.tilesWrap li button:hover {
-    color: #262a2b;
-}
-.tilesWrap li button:hover:before {
-    left: 0;
-    opacity: 1;
-} */
 .tilesWrap li:hover img {
     top: 0px;
     opacity: 0.8;

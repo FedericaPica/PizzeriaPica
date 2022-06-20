@@ -1,0 +1,50 @@
+.elencoAdmin {
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+.elencoAdmin div{
+    display: inline-block;
+    width: 50%;
+    padding: 10px 10px 30px;
+    position: relative;
+    top: 10%;
+    vertical-align: top;
+    margin: 10px;
+    min-height: 25vh;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid #252727;
+    text-align: center;
+}
+
+.elencoAdmin div h3 {
+    font-size: 30px;
+    color: #F18F01;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.elencoAdmin div:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    background: #fff;
+    transform: skew(2deg, 2deg);
+}
+.elencoAdmin div:before {
+    background: #F18F01;
+}
+
+#elenco2 {
+    background: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
+    display: inline-block;
+    width: 50%;
+    color: #A9BAC1;
+}

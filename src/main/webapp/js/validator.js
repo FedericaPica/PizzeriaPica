@@ -11,11 +11,11 @@ const passwordA = document.querySelector('#passwordIdAccedi');
 const formR = document.querySelector('#formRegistrati');
 const formA = document.querySelector('#formAccedi');
 
-formR.addEventListener('submit', function (e) {
+//formR.addEventListener('submit', function (e) {
     // prevent the form from submitting
-    e.preventDefault();
+    //e.preventDefault();
 
-    // validate forms
+function validateRegistration(){
     let isNomeValid = checkNome(),
         isCognomeValid = checkCognome(),
         isEmailValid = checkEmail(emailR),
@@ -31,10 +31,11 @@ formR.addEventListener('submit', function (e) {
         isTelefonoValid;
 
     // submit to the server if the form is valid
-    if (isFormValid) {
-
-    }
-});
+    // if (isFormValid) {
+    //     document.getElementById("formRegistrati").submit();
+    // }
+    return isFormValid;
+}
 
 formA.addEventListener('submit', function (e) {
     // prevent the form from submitting
@@ -106,7 +107,7 @@ const checkNome = () => {
 
     let valid = false;
     const min = 3,
-        max = 25;
+        max = 255;
     const nome = nomeR.value.trim();
 
     if (!isRequired(nome)) {
@@ -141,7 +142,7 @@ const checkCognome = () => {
 
     let valid = false;
     const min = 3,
-        max = 25;
+        max = 255;
     const cognome = cognomeR.value.trim();
 
     if (!isRequired(cognome)) {

@@ -39,7 +39,7 @@ public class ProdottoDAO {
     public List<Prodotto> doRetrieveByCategoria(int idCategoria) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT id, nome, prezzo, descrizione, sconto FROM prodotto WHERE categoriaid=?");
+                    con.prepareStatement("SELECT id, nome, prezzo, descrizione, categoriaid, sconto FROM prodotto WHERE categoriaid=?");
             ps.setInt(1, idCategoria);
             ResultSet rs = ps.executeQuery();
             ArrayList<Prodotto> listaProdotti = new ArrayList<>();
@@ -50,6 +50,7 @@ public class ProdottoDAO {
                 p.setNome(rs.getString("nome"));
                 p.setPrezzo(rs.getDouble("prezzo"));
                 p.setDescrizione(rs.getString("descrizione"));
+                p.setCategoriaid(rs.getInt("categoriaid"));
                 p.setSconto(rs.getInt("sconto"));
 
                 listaProdotti.add(p);

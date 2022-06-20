@@ -62,7 +62,7 @@
 
 
 <div id="registrati" class="col-5 col-t-5 container">
-    <form id="formRegistrati" class="form"  >   <!-- action="/RegistrazioneServlet" method="post" -->
+    <form id="formRegistrati" method="post" onsubmit="return validateRegistration()" action="RegistrazioneServlet" class="form">
         <div class="form-field">
             <label for="nomeId"> <b> Nome: </b> </label>
             <input type="text" id="nomeId" name="nome" autocomplete="off">
@@ -83,7 +83,7 @@
 
         <div class="form-field">
             <label for="passwordIdRegistrati"><b>  Password: </b> </label>
-            <input type="password" id="passwordIdRegistrati" name="passwordIdRegistrati" autocomplete="off">
+            <input type="password" id="passwordIdRegistrati" name="passwordRegistrati" autocomplete="off">
             <small></small>
         </div>
 
@@ -105,6 +105,6 @@
 
     </form>
 </div>
-<script src="../../js/validator.js"></script>
+<!-- <script src="js/validator.js"></script>-->
 </body>
 </html>
