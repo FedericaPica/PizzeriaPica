@@ -21,6 +21,8 @@
     <div class="col-t-4 col-4 elencoAdmin" >
         <div>
             <h3  id="categorieA"> Categorie</h3>
+            <button id="inserisciCategoria"> Inserisci nuova categoria </button>
+
             <h3> Utenti</h3>
             <h3> Ordini </h3>
             <h3> Festivi</h3>

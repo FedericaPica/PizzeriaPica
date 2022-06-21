@@ -26,7 +26,7 @@
             <th>Prezzo</th>
             <th>Descrizione</th>
             <th>Sconto</th>
-            <th></th>
+            <th  style='width: 150px'></th>
         </tr>
         <c:forEach items="${prodotti}" var="prodotto">
             <tr>

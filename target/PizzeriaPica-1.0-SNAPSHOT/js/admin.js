@@ -19,7 +19,9 @@ function myPopup(myURL, title, myWidth, myHeight) {
 }
 
 $(document).ready(function() {
-    $("#elenco2").hide();
+
+    //Categorie:
+
     $("#categorieA").on("click", function() {
         $("#mostra").empty()
         $.getJSON("MostraCategorieServlet", function(data) {
@@ -42,9 +44,16 @@ $(document).ready(function() {
                 });
 
                 $('#visualizzaCategoria' + data[i].id).click(function() {
-                    myPopup("MostraProdottiServlet?categoria=" + data[i].nome, "Prodotti", 600, 400);
+                    myPopup("MostraProdottiServlet?categoria=" + data[i].nome, "Prodotti", 800, 400);
                 });
             }
         });
     });
+
+    $("#inserisciCategoria").click(function() {
+        myPopup("InserisciCategoriaServlet", "Inserisci", 600, 200);
+    })
+
+
+
 });
