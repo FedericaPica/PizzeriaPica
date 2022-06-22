@@ -1,9 +1,12 @@
 package model.dao;
 
 import model.ConPool;
+import model.beans.Prodotto;
 import model.beans.Utente;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UtenteDAO {
 
@@ -24,6 +27,42 @@ public class UtenteDAO {
             rs.next();
             int id = rs.getInt(1);
             utente.setId(id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Utente> doRetrieveAll() {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id, nome, cognome, email, telefono FROM utente");
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Utente> listaUtenti = new ArrayList<>();
+
+            while (rs.next()) {
+                Utente u = new Utente();
+                u.setId(rs.getInt("id"));
+                u.setNome(rs.getString("nome"));
+                u.setCognome(rs.getString("cognome"));
+                u.setEmail(rs.getString("email"));
+                u.setTelefono(rs.getString("telefono"));
+
+                listaUtenti.add(u);
+            }
+            return (listaUtenti.isEmpty()) ? null : listaUtenti;
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doDelete(int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("DELETE FROM utente WHERE id=?");
+            ps.setInt(1, id);
+            ps.execute();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

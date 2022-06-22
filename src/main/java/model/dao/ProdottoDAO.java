@@ -69,6 +69,7 @@ public class ProdottoDAO {
             ps.setDouble(2, prodotto.getPrezzo());
             ps.setString(3, prodotto.getDescrizione());
             ps.setInt(4, prodotto.getSconto());
+            ps.setInt(5, prodotto.getId());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("UPDATE error.");
             }

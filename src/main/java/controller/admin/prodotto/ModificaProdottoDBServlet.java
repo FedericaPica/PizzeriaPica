@@ -21,7 +21,7 @@ public class ModificaProdottoDBServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Prodotto prodotto = new Prodotto();
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("idProd"));
         String nome = request.getParameter("nome");
         Double prezzo = Double.valueOf(request.getParameter("prezzo"));
         String descrizione = request.getParameter("descrizione");
@@ -31,6 +31,7 @@ public class ModificaProdottoDBServlet extends HttpServlet {
 
         prodotto.setId(id);
         prodotto.setNome(nome);
+        prodotto.setPrezzo(prezzo);
         prodotto.setDescrizione(descrizione);
         prodotto.setSconto(sconto);
 

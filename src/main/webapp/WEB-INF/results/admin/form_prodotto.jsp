@@ -111,9 +111,14 @@
             </tr>
             <tr>
                 <td style="width: 100%; border:none; text-align: right"><input type="submit" value="Salva"></td>
-                <c:if test="${flag == 'insert'}">
-                    <input type="hidden" name="idCat" value="${idCategoria}">
-                </c:if>
+                <c:choose>
+                    <c:when test="${flag == 'insert'}">
+                        <input type="hidden" name="idCat" value="${idCategoria}">
+                    </c:when>
+                    <c:when test="${flag == 'update'}">
+                        <input type="hidden" name="idProd" value="${prodotto.id}">
+                    </c:when>
+                </c:choose>
             </tr>
         </table>
     </form>

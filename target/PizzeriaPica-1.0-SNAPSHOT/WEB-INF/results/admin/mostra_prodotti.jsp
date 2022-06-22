@@ -34,6 +34,20 @@
                 $("#modifica" + ${prodotto.id}).click(function(){
                     window.location.href="ModificaProdottoServlet?idProdotto="+${prodotto.id};
                 });
+
+                $("#elimina" + ${prodotto.id}).on("click", function() {
+                    $.get('EliminaProdottoServlet', {
+                        "idProdotto": ${prodotto.id}
+                    }, function(data) {
+                        items = JSON.parse(data);
+                        Swal.fire({
+                            icon: items.type.toLowerCase(),
+                            title: items.title,
+                            text: items.body
+                        });
+                    });
+                    $("this").parents("tr").remove();
+                });
         </c:forEach>
         });
     </script>
@@ -57,7 +71,7 @@
             <input type="hidden" name="idCat" value="${idCategoria}">
             <td>
                 <button id='modifica${prodotto.id}'> Modifica </button>
-                <button id="elimina' + ${prodotto.id} + '"> Elimina </button> </td>
+                <button id='elimina${prodotto.id}'> Elimina </button> </td>
             </tr>
 
         </c:forEach>
