@@ -1,4 +1,4 @@
-package controller.admin;
+package controller.admin.categoria;
 
 import com.google.gson.Gson;
 import jakarta.servlet.*;
@@ -21,7 +21,6 @@ public class EliminaCategoriaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int categoriaId = Integer.parseInt(request.getParameter("categoriaId"));
-        System.out.println(categoriaId);
         CategoriaDAO dao = new CategoriaDAO();
         dao.doDelete(categoriaId);
         Message message = new Message("", "", INFO);

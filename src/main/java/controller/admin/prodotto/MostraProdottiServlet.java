@@ -1,13 +1,15 @@
-package controller.admin;
+package controller.admin.prodotto;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.beans.Message;
 import model.beans.Prodotto;
+import model.dao.ProdottoDAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static model.beans.MessageType.*;
 
@@ -15,13 +17,13 @@ import static model.beans.MessageType.*;
 public class MostraProdottiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String c = request.getParameter("categoria");
+        int c = Integer.parseInt(request.getParameter("categoria"));
         Message message = new Message("", "", INFO);
 
 
-        ArrayList<Prodotto> prodotti = new ArrayList<>();
-            String nome = "lista" + c;
-            prodotti = (ArrayList<Prodotto>) getServletContext().getAttribute(nome);
+            List<Prodotto> prodotti = new ArrayList<Prodotto>();
+            ProdottoDAO dao = new ProdottoDAO();
+            prodotti = dao.doRetrieveByCategoria(c);
 
             if(prodotti == null) {
                 message.setType(ERROR);

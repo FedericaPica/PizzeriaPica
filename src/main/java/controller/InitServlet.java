@@ -24,12 +24,5 @@ public class InitServlet extends HttpServlet {
 
         getServletContext().setAttribute("categorie", categorie);
 
-        for (Categoria c: categorie) {
-            int idC = c.getId();
-            String nome = "lista" + c.getNome();
-            getServletContext().setAttribute(nome, pDao.doRetrieveByCategoria(idC));
-        }
-
-
     }
 }

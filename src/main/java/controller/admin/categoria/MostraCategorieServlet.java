@@ -1,4 +1,4 @@
-package controller.admin;
+package controller.admin.categoria;
 
 import com.google.gson.Gson;
 import jakarta.servlet.*;

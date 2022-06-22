@@ -1,4 +1,4 @@
-package controller.admin;
+package controller.admin.categoria;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -14,23 +14,27 @@ import java.util.List;
 import static model.beans.MessageType.INFO;
 import static model.beans.MessageType.SUCCESS;
 
-@WebServlet(name = "InserisciCategoriaDBServlet", value = "/InserisciCategoriaDBServlet")
-public class InserisciCategoriaDBServlet extends HttpServlet {
+@WebServlet(name = "ModificaCategoriaDBServlet", value = "/ModificaCategoriaDBServlet")
+public class ModificaCategoriaDBServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Categoria categoria = new Categoria();
+        int id = Integer.parseInt(request.getParameter("id"));
         String nome = request.getParameter("nome");
         int priority = Integer.parseInt(request.getParameter("priority"));
         Message message = new Message("", "", INFO);
 
-        Categoria categoria = new Categoria();
+        categoria.setId(id);
         categoria.setNome(nome);
         categoria.setPriority(priority);
+        System.out.println(categoria.getPriority());
         CategoriaDAO dao = new CategoriaDAO();
+
 
         if(dao.doRetrieveByPriority(priority) != null) {
             dao.doIncreasePriority(priority);
         }
-        dao.doSave(categoria);
+        dao.doUpdate(categoria);
 
         List<Categoria> listaCategorie = new ArrayList<Categoria>();
         listaCategorie = dao.doRetrieveAll();
@@ -39,14 +43,14 @@ public class InserisciCategoriaDBServlet extends HttpServlet {
 
 
         message.setType(SUCCESS);
-        message.setBody("Inserito con successo.");
+        message.setBody("Modifica effettuata.");
         message.setTitle("Ok!");
         request.setAttribute("message", message);
 
+        String address;
         request.setAttribute("categoria", categoria);
-        String address = "/WEB-INF/results/admin/form_categoria.jsp";
-        RequestDispatcher dispatcher =
-                request.getRequestDispatcher(address);
+        address = "/WEB-INF/results/admin/form_categoria.jsp";
+        RequestDispatcher dispatcher = request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
 
     }

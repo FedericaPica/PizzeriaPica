@@ -52,7 +52,7 @@ nav li {
     margin-top: 5px;
 }
 
-.tilesWrap li:hover img {
+.tilesWrap li img:hover {
     top: 0px;
     opacity: 0.8;
 }

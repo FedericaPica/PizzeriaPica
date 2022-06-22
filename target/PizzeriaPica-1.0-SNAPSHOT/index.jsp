@@ -28,44 +28,6 @@
 
 <body>
 <%@include file="header.jsp"%>
-
-    <a href="Temporanea"> admin </a>
-<div class="row">
-
-    <%@include file="nav.jsp"%>
-
-
-    <section class="col-t-6 col-6" >
-        <ul class="tilesWrap">
-            <% ArrayList<Categoria> categorie = (ArrayList<Categoria>) application.getAttribute("categorie");
-            for (Categoria c : categorie) {%>
-                <li>
-                    <img src="images/pizza.jpg"></img>
-                    <h3 id="<%=c.getNome()%>"><%=c.getNome()%></h3>
-                    <% ArrayList<Prodotto> prodotti = (ArrayList<Prodotto>) application.getAttribute("lista" + c.getNome());
-                    if(prodotti != null) {
-                    for (Prodotto p : prodotti) {%>
-                    <p class="prodotto" onclick="addCart()">
-                        <span style="font-size: 25px"><%=p.getNome()%> </span>
-                        <b><%=new DecimalFormat("#,##0.00").format(p.getPrezzo())%> &euro; </b>
-                        <br> <%=p.getDescrizione()%>
-                    </p>
-                    <% }} else { %>
-                    <p> Nessun prodotto presente. </p>
-                    <% } %>
-
-                </li>
-            <% } %>
-        </ul>
-    </section>
-
-
-    <%@include file="aside.jsp"%>>
-
-
-</div>
-<%@include file="footer.jsp"%>
-
 <script>
     function addCart() {
         Swal.fire({
@@ -83,6 +45,51 @@
             //}
         })
     }
+
+    function mostraListe(idCategoria) {
+        var id = idCategoria;
+        $.getJSON("ListaProdottiServlet", {idCategoria: idCategoria}, function(data){
+            if (data == null) {
+                $("#li" + id).append("<p> Nessun prodotto presente. </p>");
+            } else {
+                for (let i = 0; i < data.length; i++) {
+                    $("#li" + id).append('<p class="prodotto" onclick="addCart()">' +
+                        '<span style="font-size: 25px">' + data[i].nome + '</span>' +
+                        '<b> ' + (Math.round(data[i].prezzo * 100) / 100).toFixed(2) + ' &euro; </b>' +
+                        ' <br>' + data[i].descrizione + '</p>');
+
+                }
+            }
+        });
+    }
 </script>
+
+    <a href="Temporanea"> admin </a>
+<div class="row">
+
+    <%@include file="nav.jsp"%>
+
+
+    <section class="col-t-6 col-6" >
+        <ul class="tilesWrap">
+            <% ArrayList<Categoria> categorie = (ArrayList<Categoria>) application.getAttribute("categorie");
+            for (Categoria c : categorie) {%>
+                <li id="li<%=c.getId()%>">
+                    <img src="images/pizza.jpg"  onload="mostraListe(<%=c.getId()%>)"></img>
+                    <h3 id="name<%=c.getNome()%>" ><%=c.getNome()%></h3>
+
+
+                </li>
+            <% } %>
+        </ul>
+    </section>
+
+
+    <%@include file="aside.jsp"%>>
+
+
+</div>
+
+
 </body>
 </html>

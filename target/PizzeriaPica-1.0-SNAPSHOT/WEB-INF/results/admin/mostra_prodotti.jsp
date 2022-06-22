@@ -20,6 +20,26 @@
     </style>
 </head>
 <body>
+<c:set var = "mess"  value = "${message.type}"/>
+<script>
+    $(document).ready(function() {
+        <c:if test = "${mess != null}">
+        Swal.fire({
+            icon: '${fn:toLowerCase(mess)}',
+            title: '${message.title}',
+            text: '${message.body}'
+        });
+        </c:if>
+        <c:forEach items="${prodotti}" var="prodotto">
+                $("#modifica" + ${prodotto.id}).click(function(){
+                    window.location.href="ModificaProdottoServlet?idProdotto="+${prodotto.id};
+                });
+        </c:forEach>
+        });
+    </script>
+
+
+
     <table>
         <tr>
             <th>Nome</th>
@@ -34,25 +54,14 @@
             <td> ${prodotto.prezzo} &euro;</td>
             <td> ${prodotto.descrizione}</td>
             <td> ${prodotto.sconto} %</td>
+            <input type="hidden" name="idCat" value="${idCategoria}">
             <td>
-                <button id="modifica' + ${prodotto.id} + '"> Modifica </button>
-                <button id="elimina' + ${prodotto.id} + '"> Elimina </button>
+                <button id='modifica${prodotto.id}'> Modifica </button>
+                <button id="elimina' + ${prodotto.id} + '"> Elimina </button> </td>
             </tr>
+
         </c:forEach>
 
     </table>
-    <% Message message = (Message) request.getAttribute("message");
-        if (message != null) { %>
-    <script>
-        Swal.fire({
-            icon: '<%=message.getType().toLowerCase()%>',
-            title: '<%=message.getTitle()%>',
-            text: '<%=message.getBody()%>'
-        })
-    </script>
-
-    <%
-        }
-    %>
 </body>
 </html>

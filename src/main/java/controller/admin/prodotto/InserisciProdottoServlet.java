@@ -1,29 +1,23 @@
-package controller.admin;
+package controller.admin.prodotto;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import model.beans.Categoria;
-import model.beans.Message;
-import model.dao.CategoriaDAO;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import static model.beans.MessageType.INFO;
-import static model.beans.MessageType.SUCCESS;
-
-@WebServlet(name = "InserisciCategoriaServlet", value = "/InserisciCategoriaServlet")
-public class InserisciCategoriaServlet extends HttpServlet {
+@WebServlet(name = "InserisciProdottoServlet", value = "/InserisciProdottoServlet")
+public class InserisciProdottoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        int idCategoria = Integer.parseInt(request.getParameter("idCat"));
         String address;
-        address = "/WEB-INF/results/admin/form_categoria.jsp";
+        address = "/WEB-INF/results/admin/form_prodotto.jsp";
 
         String flag = "insert";
         request.setAttribute("flag", flag);
-
+        request.setAttribute("idCategoria", idCategoria);
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher(address);
         dispatcher.forward(request, response);

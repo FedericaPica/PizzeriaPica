@@ -30,9 +30,10 @@ $(document).ready(function() {
 
                 $("#mostra").append("<tr id='categoria" + data[i].id + "'> <td>" + data[i].nome + "</td> <td>" + data[i].priority + "</td>" +
 
-                    "<td style='max-width: 80px'> <button id='deleteCategoria" + data[i].id + "'> Elimina </button>" +
+                    "<td style='max-width: 190px'> <button id='deleteCategoria" + data[i].id + "'> Elimina </button>" +
                     "<button id='modificaCategoria" + data[i].id + "'> Modifica </button>" +
-                    "<button id='visualizzaCategoria" + data[i].id + "'> Mostra prodotti </button> </td> </tr>");
+                    "<button id='visualizzaCategoria" + data[i].id + "'> Mostra prodotti </button>" +
+                    "<button id='inserisciProdottoCat" + data[i].id + "'> Inserisci prodotto </button> </td> </tr>");
 
                 $('#deleteCategoria' + data[i].id).click(function() {
                     deleteCategoria(data[i].id)
@@ -44,14 +45,18 @@ $(document).ready(function() {
                 });
 
                 $('#visualizzaCategoria' + data[i].id).click(function() {
-                    myPopup("MostraProdottiServlet?categoria=" + data[i].nome, "Prodotti", 800, 400);
+                    myPopup("MostraProdottiServlet?categoria=" + data[i].id, "Prodotti", 800, 400);
+                });
+
+                $('#inserisciProdottoCat' + data[i].id).click(function() {
+                    myPopup("InserisciProdottoServlet?idCat=" + data[i].id, "Inserisci", 600, 400);
                 });
             }
         });
     });
 
     $("#inserisciCategoria").click(function() {
-        myPopup("InserisciCategoriaServlet", "Inserisci", 600, 200);
+        myPopup("InserisciCategoriaServlet", "Inserisci", 600, 400);
     })
 
 
