@@ -7,6 +7,7 @@ public class Ordine {
     private Timestamp ritiroDt;
     private double totale;
     private int utenteid;
+    private StatoOrdine stato;
 
     public Ordine() {
     }
@@ -41,5 +42,13 @@ public class Ordine {
 
     public void setUtenteid(int utenteid) {
         this.utenteid = utenteid;
+    }
+
+    public StatoOrdine getStato() {
+        return stato;
+    }
+
+    public void setStato(StatoOrdine stato) {
+        this.stato = stato;
     }
 }

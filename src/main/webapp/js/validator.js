@@ -11,10 +11,6 @@ const passwordA = document.querySelector('#passwordIdAccedi');
 const formR = document.querySelector('#formRegistrati');
 const formA = document.querySelector('#formAccedi');
 
-//formR.addEventListener('submit', function (e) {
-    // prevent the form from submitting
-    //e.preventDefault();
-
 function validateRegistration(){
     let isNomeValid = checkNome(),
         isCognomeValid = checkCognome(),
@@ -30,10 +26,6 @@ function validateRegistration(){
         isConfirmPasswordValid &&
         isTelefonoValid;
 
-    // submit to the server if the form is valid
-    // if (isFormValid) {
-    //     document.getElementById("formRegistrati").submit();
-    // }
     return isFormValid;
 }
 

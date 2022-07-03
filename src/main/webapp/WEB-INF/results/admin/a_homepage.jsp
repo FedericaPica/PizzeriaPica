@@ -24,9 +24,14 @@
             <button id="inserisciCategoria"> Inserisci nuova categoria </button>
 
             <h3  id="utentiA"> Utenti</h3>
-            <h3> Ordini </h3>
+
+            <h3 id="ordiniA"> Ordini </h3>
+
             <h3> Festivi</h3>
-            <h3>Orari</h3>
+
+            <h3 id="orariA"> Orari</h3>
+            <button id="inserisciOrario"> Inserisci nuovo slot orario </button>
+
             <h3> Logout</h3>
         </div>
     </div>

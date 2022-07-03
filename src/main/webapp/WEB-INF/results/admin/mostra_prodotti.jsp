@@ -36,17 +36,16 @@
                 });
 
                 $("#elimina" + ${prodotto.id}).on("click", function() {
-                    $.get('EliminaProdottoServlet', {
-                        "idProdotto": ${prodotto.id}
-                    }, function(data) {
+                    $.get('EliminaProdottoServlet', {"idProdotto": ${prodotto.id}}, function(data) {
                         items = JSON.parse(data);
                         Swal.fire({
                             icon: items.type.toLowerCase(),
                             title: items.title,
                             text: items.body
                         });
+                        $("#elimina" + ${prodotto.id}).closest("tr").remove();
                     });
-                    $("this").parents("tr").remove();
+
                 });
         </c:forEach>
         });

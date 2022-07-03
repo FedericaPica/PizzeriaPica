@@ -43,7 +43,7 @@
 
     <form id="formAccedi" class="form">
         <div class="form-field">
-            <label for="emailIdAccedi"> <b> Indirizzo di posta elettronica: </b> </label>
+            <label for="emailIdAccedi"> <b> Email: </b> </label>
             <input type="text" id="emailIdAccedi" name="emailAccedi" autocomplete="off">
             <small></small>
         </div>
@@ -55,7 +55,7 @@
         </div>
 
         <div class="form-field">
-            <input type="submit" value="Registrati">
+            <input type="submit" value="Accedi">
         </div>
     </form>
 </div>
@@ -76,7 +76,7 @@
         </div>
 
         <div class="form-field">
-            <label for="emailIdRegistrati"> <b> Indirizzo di posta elettronica: </b> </label>
+            <label for="emailIdRegistrati"> <b> Email: </b> </label>
             <input type="text" id="emailIdRegistrati" name="emailRegistrati" autocomplete="off">
             <small></small>
         </div>
@@ -95,7 +95,7 @@
 
         <div class="form-field">
             <label for="telefonoId"> <b> Telefono:</b>  </label>
-             <input type="text" id="telefonoId" name="telefono" autocomplete="off" value="+(39) ...">
+             <input type="text" id="telefonoId" name="telefono" autocomplete="off" value="+(39)">
             <small></small>
         </div>
 
@@ -105,6 +105,6 @@
 
     </form>
 </div>
-<!-- <script src="js/validator.js"></script>-->
+<script src="js/validator.js"></script>
 </body>
 </html>

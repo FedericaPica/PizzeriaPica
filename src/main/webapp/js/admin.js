@@ -1,16 +1,3 @@
-function deleteCategoria(id) {
-    $.get('EliminaCategoriaServlet', {
-        "categoriaId": id
-    }, function(data) {
-        items = JSON.parse(data);
-        Swal.fire({
-            icon: items.type.toLowerCase(),
-            title: items.title,
-            text: items.body
-        });
-        $('#categoria' + id).remove();
-    });
-}
 
 function myPopup(myURL, title, myWidth, myHeight) {
     var left = (screen.width - myWidth) / 2;
@@ -36,7 +23,16 @@ $(document).ready(function() {
                     "<button id='inserisciProdottoCat" + data[i].id + "'> Inserisci prodotto </button> </td> </tr>");
 
                 $('#deleteCategoria' + data[i].id).click(function () {
-                    deleteCategoria(data[i].id)
+                    let id = data[i].id;
+                    $.get('EliminaCategoriaServlet', {"categoriaId": id}, function(data) {
+                        items = JSON.parse(data);
+                        Swal.fire({
+                            icon: items.type.toLowerCase(),
+                            title: items.title,
+                            text: items.body
+                        });
+                        $('#categoria' + id).remove();
+                    });
                 });
 
 
@@ -59,6 +55,8 @@ $(document).ready(function() {
         myPopup("InserisciCategoriaServlet", "Inserisci", 600, 400);
     })
 
+    // Utenti
+
 
     $("#utentiA").on("click", function () {
         $("#mostra").empty()
@@ -71,6 +69,7 @@ $(document).ready(function() {
                     "<td style='max-width: 190px'> <button id='deleteUtente" + data[i].id + "'> Elimina </button></td> </tr>");
 
                 $('#deleteUtente' + data[i].id).click(function () {
+                    let idUtente= data[i].id;
                     $.get('EliminaUtenteServlet', {"utenteId": data[i].id}, function (data) {
                         items = JSON.parse(data);
                         Swal.fire({
@@ -78,12 +77,82 @@ $(document).ready(function() {
                             title: items.title,
                             text: items.body
                         });
-                        $('#utente' + data[i].id).remove();
                     });
+                    $('#deleteUtente' + idUtente).closest("tr").remove();
                 });
 
 
             }
         });
     });
+
+    //Ordini
+
+    $("#ordiniA").on("click", function () {
+        $("#mostra").empty()
+        $.getJSON("MostraOrdiniServlet", function (data) {
+            $("#mostra").append("<tr> <th>Id</th> <th>Ritiro</th> <th>Totale</th> <th>Cliente</th> <th>Stato</th> <th> </th></tr>");
+            for (let i = 0; i < data.length; i++) {
+                let concat_button;
+                if(data[i].stato == "ATTIVO") {
+                    concat_button = "<td style='max-width: 190px'> <button id='annullaOrdine" + data[i].id + "'> Annulla ordine </button>";
+                } else {
+                    concat_button = "<td></td>";
+                }
+                $("#mostra").append("<tr> <td>" + data[i].id + "</td> <td>" + data[i].ritiroDt + "</td> <td>" + data[i].totale + "</td> <td>" + data[i].utenteid + "</td> <td id='stato" + data[i].id + "'>" + (data[i].stato).toLowerCase() + "</td>" +
+                          concat_button + "</tr>");
+
+                $('#annullaOrdine' + data[i].id).click(function () {
+                    let idOrdine= data[i].id;
+                    $.get('AnnullaOrdineServlet', {"idOrdine": idOrdine}, function (jsonData) {
+                        items = JSON.parse(jsonData);
+                        Swal.fire({
+                            icon: items.type.toLowerCase(),
+                            title: items.title,
+                            text: items.body
+                        });
+                        if(items.type == "SUCCESS") {
+                            $('#stato' + idOrdine).html("annullato");
+                            $('#annullaOrdine' + data[i].id).hide();
+                        }
+                    });
+                });
+            }
+        });
+    });
+
+    //Orari
+
+    $("#orariA").on("click", function () {
+        $("#mostra").empty()
+        $.getJSON("MostraOrariServlet", function (data) {
+            $("#mostra").append("<tr> <th>Slot orari</th><th> </th></tr>");
+            for (let i = 0; i < data.length; i++) {
+
+                $("#mostra").append("<tr id='orario" + data[i].id + "'> <td>" + data[i].orario + "</td>" +
+
+                    "<td style='max-width: 190px'> <button id='deleteOrario" + data[i].id + "'> Elimina </button></td> </tr>");
+
+                $('#deleteOrario' + data[i].id).click(function () {
+                    let idOrario= data[i].id;
+                    $.get('EliminaOrarioServlet', {"orarioId": data[i].id}, function (data) {
+                        items = JSON.parse(data);
+                        Swal.fire({
+                            icon: items.type.toLowerCase(),
+                            title: items.title,
+                            text: items.body
+                        });
+                    });
+                    $('#deleteOrario' + idOrario).closest("tr").remove();
+                });
+
+
+            }
+        });
+    });
+
+    $("#inserisciOrario").click(function () {
+        myPopup("InserisciOrarioServlet", "Inserisci", 600, 400);
+    })
+
 })

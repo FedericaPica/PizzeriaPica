@@ -1,10 +1,11 @@
 package model.beans;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Orario {
     private int id;
-    private Timestamp orario;
+    private Time orario;
 
     public Orario() {
     }
@@ -17,11 +18,11 @@ public class Orario {
         this.id = id;
     }
 
-    public Timestamp getOrario() {
+    public Time getOrario() {
         return orario;
     }
 
-    public void setOrario(Timestamp orario) {
+    public void setOrario(Time orario) {
         this.orario = orario;
     }
 }

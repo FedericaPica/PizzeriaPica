@@ -1,6 +1,7 @@
 package model.dao;
 
 import model.ConPool;
+import model.beans.Categoria;
 import model.beans.Prodotto;
 import model.beans.Utente;
 
@@ -64,6 +65,27 @@ public class UtenteDAO {
             ps.setInt(1, id);
             ps.execute();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Utente doRetrieveById(int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id, nome, cognome, email, telefono FROM utente WHERE id=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Utente u = new Utente();
+                u.setId(rs.getInt("id"));
+                u.setNome(rs.getString("nome"));
+                u.setCognome(rs.getString("cognome"));
+                u.setEmail(rs.getString("email"));
+                u.setTelefono(rs.getString("telefono"));
+                return u;
+            }
+            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
