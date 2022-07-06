@@ -1,6 +1,6 @@
 <%@ page import="model.beans.Message" %>
 <link rel="stylesheet" href="css/header.css" type="text/css">
-<header>
+<header id="header">
     <div>
         <img class="fotohead" src="images/locale3.jpeg">
         <img  class="fotohead" src="images/locale1.jpeg">

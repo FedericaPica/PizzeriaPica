@@ -6,13 +6,16 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "ChiSiamoServlet", value = "/ChiSiamoServlet")
-public class ChiSiamoServlet extends HttpServlet {
+@WebServlet(name = "LogoutServlet", value = "/LogoutServlet")
+public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/chi_siamo.jsp");
+
+        request.getSession(true).invalidate();
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
-        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

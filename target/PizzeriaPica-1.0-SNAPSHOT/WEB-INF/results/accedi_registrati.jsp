@@ -1,3 +1,6 @@
+<%@ taglib prefix ='c' uri ='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/functions'  prefix="fn"%>
+
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -41,7 +44,7 @@
 <%@include file="../../nav.jsp"%>
 <div id="accedi" class="col-4 col-t-4 container">
 
-    <form id="formAccedi" class="form">
+    <form id="formAccedi" class="form" onsubmit="return validateLogin()" action="LoginServlet"  method="post" >
         <div class="form-field">
             <label for="emailIdAccedi"> <b> Email: </b> </label>
             <input type="text" id="emailIdAccedi" name="emailAccedi" autocomplete="off">
@@ -50,7 +53,7 @@
 
         <div class="form-field">
             <label for="passwordIdAccedi"><b>  Password: </b> </label>
-            <input type="password" id="passwordIdAccedi" name="passwordIdAccedi" autocomplete="off">
+            <input type="password" id="passwordIdAccedi" name="passwordAccedi" autocomplete="off">
             <small></small>
         </div>
 
@@ -62,7 +65,7 @@
 
 
 <div id="registrati" class="col-5 col-t-5 container">
-    <form id="formRegistrati" method="post" onsubmit="return validateRegistration()" action="RegistrazioneServlet" class="form">
+    <form id="formRegistrati" onsubmit="return validateRegistration()" action="RegistrazioneServlet"  method="post"  class="form">
         <div class="form-field">
             <label for="nomeId"> <b> Nome: </b> </label>
             <input type="text" id="nomeId" name="nome" autocomplete="off">

@@ -70,11 +70,33 @@ public class UtenteDAO {
         }
     }
 
-    public Utente doRetrieveById(int id) {
+//    public Utente doRetrieveById(int id) {
+//        try (Connection con = ConPool.getConnection()) {
+//            PreparedStatement ps =
+//                    con.prepareStatement("SELECT id, nome, cognome, email, telefono FROM utente WHERE id=?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                Utente u = new Utente();
+//                u.setId(rs.getInt("id"));
+//                u.setNome(rs.getString("nome"));
+//                u.setCognome(rs.getString("cognome"));
+//                u.setEmail(rs.getString("email"));
+//                u.setTelefono(rs.getString("telefono"));
+//                return u;
+//            }
+//            return null;
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    public Utente doRetrieveByEmailPassword(String email, String pass) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT id, nome, cognome, email, telefono FROM utente WHERE id=?");
-            ps.setInt(1, id);
+                    con.prepareStatement("SELECT id, nome, cognome, email, telefono, password, admin FROM utente WHERE email=? AND password=SHA1 (?)");
+            ps.setString(1, email);
+            ps.setString(2, pass);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Utente u = new Utente();
@@ -83,6 +105,8 @@ public class UtenteDAO {
                 u.setCognome(rs.getString("cognome"));
                 u.setEmail(rs.getString("email"));
                 u.setTelefono(rs.getString("telefono"));
+                u.setPassword(rs.getString("password"));
+                u.setAdmin(rs.getBoolean("admin"));
                 return u;
             }
             return null;

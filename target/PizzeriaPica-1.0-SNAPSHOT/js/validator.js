@@ -1,18 +1,23 @@
+//Registrazione
 const nomeR = document.querySelector('#nomeId');
 const cognomeR = document.querySelector('#cognomeId');
 const emailR = document.querySelector('#emailIdRegistrati');
 const passwordR = document.querySelector('#passwordIdRegistrati');
 const passwordConferma = document.querySelector('#passwordConferma');
 const telefonoR = document.querySelector('#telefonoId');
-
+//Login
 const emailA = document.querySelector('#emailIdAccedi');
 const passwordA = document.querySelector('#passwordIdAccedi');
+//Categoria
+const nomeC = document.querySelector('#nomeIdInsert');
+const priorityC = document.querySelector('#priorityIdInsert');
+
 
 const formR = document.querySelector('#formRegistrati');
 const formA = document.querySelector('#formAccedi');
 
 function validateRegistration(){
-    let isNomeValid = checkNome(),
+    let isNomeValid = checkNome(nomeR),
         isCognomeValid = checkCognome(),
         isEmailValid = checkEmail(emailR),
         isPasswordValid = checkPassword(passwordR),
@@ -29,22 +34,16 @@ function validateRegistration(){
     return isFormValid;
 }
 
-formA.addEventListener('submit', function (e) {
-    // prevent the form from submitting
-    e.preventDefault();
-
-    // validate forms
+function validateLogin(){
     let isEmailValid = checkEmail(emailA),
         isPasswordValid = checkPassword(passwordA);
 
-    let isFormValid = isEmailValid &&
+    let isFormValid =
+        isEmailValid &&
         isPasswordValid;
 
-    // submit to the server if the form is valid
-    if (isFormValid) {
-
-    }
-});
+    return isFormValid;
+}
 
 const isRequired = value => value === '' ? false : true;
 
@@ -53,6 +52,11 @@ const isBetween = (length, min, max) => length < min || length > max ? false : t
 const nomeValid = (nome) => {
     const re = /[a-zA-Z\s\']/;
     return re.test(nome);
+}
+
+const priorityValid = (priority) => {
+    const re = /^\d+$/;
+    return re.test(priority);
 }
 
 const emailValid = (email) => {
@@ -95,21 +99,21 @@ const showSuccess = (input) => {
     error.textContent = '';
 }
 
-const checkNome = () => {
+const checkNome = (input) => {
 
     let valid = false;
     const min = 3,
         max = 255;
-    const nome = nomeR.value.trim();
+    const nome = input.value.trim();
 
     if (!isRequired(nome)) {
-        showError(nomeR, 'Il campo non può essere vuoto.');
+        showError(input, 'Il campo non può essere vuoto.');
     } else if (!isBetween(nome.length, min, max)) {
-        showError(nomeR, `Deve contenere tra ${min} e ${max} caratteri.`)
+        showError(input, `Deve contenere tra ${min} e ${max} caratteri.`)
     } else if (!nomeValid(nome)) {
-        showError(nomeR, 'Nome non valido.');
+        showError(input, 'Nome non valido.');
     } else {
-        showSuccess(nomeR);
+        showSuccess(input);
         valid = true;
     }
     return valid;

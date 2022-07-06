@@ -1,15 +1,38 @@
 /* nav */
 nav {
     background-color: #F18F01;
+    position: relative;
 }
-nav ul {
+nav.sticky {
+    position: fixed;
+    top:30px;
+}
+.navOffsetMargin {
+    margin-left: 16.8%;
+}
+nav ul, aside ul{
     list-style-type: none;
     margin: 6px 6px;
     padding: 0;
 }
-nav li {
+nav li, aside li{
     border: 2px outset #A9BAC1;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
 }
+nav li a, aside li a{
+    text-decoration: none;
+    color: black;
+}
+nav li:hover, nav li a:hover, #order:hover{
+    background-color: #252727;
+    color: #A9BAC1;
+    cursor: pointer;
+}
+
 
 /* section */
 .tilesWrap {

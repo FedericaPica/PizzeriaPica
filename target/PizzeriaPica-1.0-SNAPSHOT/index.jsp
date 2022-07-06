@@ -1,10 +1,13 @@
 <%@ taglib prefix ='c' uri ='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/functions'  prefix="fn"%>
+
 <!DOCTYPE html>
 
 <html>
 <head>
    <%@include file="includes.html"%>
     <%@ page import="model.beans.Prodotto" %>
+    <%@ page import="model.beans.Utente" %>
     <%@ page import="java.util.ArrayList" %>
     <%@ page import="model.beans.Categoria" %>
     <%@ page import="java.text.DecimalFormat" %>
@@ -29,7 +32,10 @@
 <body>
 <%@include file="header.jsp"%>
 <script>
-    function addCart() {
+
+
+
+    function addCart(idProdotto) {
         Swal.fire({
             title: "Aggiungere all'ordine?",
             showCancelButton: true,
@@ -39,10 +45,17 @@
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 Swal.fire('Aggiunto!', '', 'success')
+                $.getJSON("AggiungiAlCarrelloServlet", {idProdotto: idProdotto}, function (data) {
+                    <% Utente utente = (Utente)session.getAttribute("utente");
+                    if (utente == null) { %>
+                    $("#prodottiCarrelloSession").append("<li>" + data.nome + data.prezzo + data.sconto + "% </li>");
+                    $("#totaleSession").html("Totale:" + data.totale);
+                    <% } else { %>
+                    mostraCarrelloAside();
+                    <% } %>
+                });
+
             }
-            //else if (result.isDenied) {
-            //  Swal.fire('Changes are not saved', '', 'info')
-            //}
         })
     }
 
@@ -53,8 +66,8 @@
                 $("#li" + id).append("<p> Nessun prodotto presente. </p>");
             } else {
                 for (let i = 0; i < data.length; i++) {
-                    $("#li" + id).append('<p class="prodotto" onclick="addCart()">' +
-                        '<span style="font-size: 25px">' + data[i].nome + '</span>' +
+                    $("#li" + id).append('<p class="prodotto" onclick="addCart(' + data[i].id + ')">' +
+                        '<span style="font-size: 25px; color:white;">' + data[i].nome + '</span>' +
                         '<b> ' + (Math.round(data[i].prezzo * 100) / 100).toFixed(2) + ' &euro; </b>' +
                         ' <br>' + data[i].descrizione + '</p>');
 
@@ -70,7 +83,7 @@
     <%@include file="nav.jsp"%>
 
 
-    <section class="col-t-6 col-6" >
+    <section class="col-t-6 col-6" id="section">
         <ul class="tilesWrap">
             <% ArrayList<Categoria> categorie = (ArrayList<Categoria>) application.getAttribute("categorie");
             for (Categoria c : categorie) {%>
@@ -85,7 +98,7 @@
     </section>
 
 
-    <%@include file="aside.jsp"%>>
+    <%@include file="aside.jsp"%>
 
 
 </div>

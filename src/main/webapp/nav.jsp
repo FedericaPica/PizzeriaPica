@@ -1,15 +1,28 @@
 
-
-
-<nav class="col-3 col-t-3" >
+<nav  class="col-2 col-t-2" id="navBar">
     <ul>
+        <c:set var = "utente" value = "${utente}"/>
 
+        <c:if test = "${utente != null}">
+            <li style="background-color:black; color: #A9BAC1;"> Ciao <b> ${utente.nome}</b> </li>
+        </c:if>
 
-        <li> </li>
         <li> <a href="ChiSiamoServlet"> Chi siamo </a></li>
-        <li id="menu"> Menu prodotti </li>
+
+        <li id="menu">Menu prodotti </li>
         <ul id="categorie"> </ul>
-        <li> <a href="AuthServlet"> Accedi/Registrati </a> </li>
+
+        <c:choose>
+            <c:when test="${utente == null}">
+                <li> <a href="AuthServlet"> Accedi/Registrati </a> </li>
+            </c:when>
+
+            <c:when test="${utente != null}">
+                <li> <a href="LogoutServlet"> Logout </a> </li>
+            </c:when>
+        </c:choose>
+
         <li> <a href="index.jsp"> Home </a></li>
+
     </ul>
 </nav>

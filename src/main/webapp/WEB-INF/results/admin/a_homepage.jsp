@@ -32,7 +32,7 @@
             <h3 id="orariA"> Orari</h3>
             <button id="inserisciOrario"> Inserisci nuovo slot orario </button>
 
-            <h3> Logout</h3>
+            <h3> <a href="LogoutServlet"> Logout </a></h3>
         </div>
     </div>
 

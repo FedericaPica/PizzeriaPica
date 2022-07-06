@@ -1,9 +1,9 @@
-package model.carrello;
+package model.beans;
 
-public class Carrello {
+public class Carrello{
     private int id;
-    private boolean stato;
-    private String sessionId;
+    private StatoCarrello stato;
+    private String session_id;
     private int ordineid;
     private int utenteid;
 
@@ -18,20 +18,20 @@ public class Carrello {
         this.id = id;
     }
 
-    public boolean isStato() {
+    public StatoCarrello getStato() {
         return stato;
     }
 
-    public void setStato(boolean stato) {
+    public void setStato(StatoCarrello stato) {
         this.stato = stato;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public String getSession_id() {
+        return session_id;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setSession_id(String session_id) {
+        this.session_id = session_id;
     }
 
     public int getOrdineid() {
