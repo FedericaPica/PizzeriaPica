@@ -27,14 +27,6 @@ public class MostraCarrelloServlet extends HttpServlet {
         ProdottoCarrelloDAO pcDao = new ProdottoCarrelloDAO();
         ArrayList<CarrelloVisualizzato> prodottiCarrelloDb = (ArrayList<CarrelloVisualizzato>) pcDao.doRetrieveByCarrelloIdVisualizzato(carrelloDb.getId());
 
-//        ArrayList<Prodotto> prodottiDb = new ArrayList<>();
-//        ProdottoDAO pDao = new ProdottoDAO();
-//        if (prodottiCarrelloDb != null) {
-//            for (ProdottoCarrello pC : prodottiCarrelloDb) {
-//                prodottiDb.add(pDao.doRetrieveById(pC.getProdottoid()));
-//            }
-//        }
-
         PrintWriter out = new PrintWriter(response.getWriter());
         Gson gson = new Gson();
         String json = gson.toJson(prodottiCarrelloDb);

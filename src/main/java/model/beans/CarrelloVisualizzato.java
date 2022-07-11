@@ -5,6 +5,7 @@ public class CarrelloVisualizzato {
     private double prezzo;
     private int sconto;
     private int quantita;
+    private double totale;
 
     public CarrelloVisualizzato() {
     }
@@ -39,5 +40,13 @@ public class CarrelloVisualizzato {
 
     public void setQuantita(int quantita) {
         this.quantita = quantita;
+    }
+
+    public double getTotale() {
+        return totale;
+    }
+
+    public void setTotale(double totale) {
+        this.totale = totale;
     }
 }

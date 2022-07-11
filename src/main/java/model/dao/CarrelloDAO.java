@@ -60,4 +60,41 @@ public class CarrelloDAO {
             throw new RuntimeException(e);
         }
     }
+    public void doUpdate(Carrello carrello) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE carrello SET stato=?, session_id=?, ordineid=?, utenteid=? WHERE id=?");
+            ps.setString(1, carrello.getStato().name());
+            ps.setString(2, carrello.getSession_id());
+            ps.setInt(3, carrello.getOrdineid());
+            ps.setInt(4, carrello.getUtenteid());
+            ps.setInt(5, carrello.getId());
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("UPDATE error.");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Carrello doRetrieveById(int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id, stato, session_id, ordineid, utenteid FROM carrello WHERE id=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Carrello c = new Carrello();
+                c.setId(rs.getInt("id"));
+                c.setStato(StatoCarrello.valueOf((rs.getString("stato")).toUpperCase()));
+                c.setSession_id(rs.getString("session_id"));
+                c.setOrdineid(rs.getInt("ordineid"));
+                c.setUtenteid(rs.getInt("utenteid"));
+                return c;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -2,13 +2,11 @@ package model.dao;
 
 import model.ConPool;
 import model.beans.Categoria;
+import model.beans.Orario;
 import model.beans.Ordine;
 import model.beans.StatoOrdine;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +25,7 @@ public class OrdineDAO {
                 o.setTotale(rs.getDouble("totale"));
                 o.setUtenteid(rs.getInt("utenteid"));
                 o.setStato(StatoOrdine.valueOf((rs.getString("stato")).toUpperCase()));
+
 
                 listaOrdini.add(o);
             }
@@ -67,6 +66,27 @@ public class OrdineDAO {
                 return o;
             }
             return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void doSave(Ordine ordine) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "INSERT INTO ordine (ritiroDt, totale, utenteid, stato) VALUES(?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setTimestamp(1, ordine.getRitiroDt());
+            ps.setDouble(2, ordine.getTotale());
+            ps.setInt(3, ordine.getUtenteid());
+            ps.setString(4, ordine.getStato().name());
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            ordine.setId(id);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

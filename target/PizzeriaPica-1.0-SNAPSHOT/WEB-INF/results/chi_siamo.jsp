@@ -44,10 +44,10 @@
 </head>
 <body>
 <%@include file="../../header.jsp"%>
-
+<div>
 <%@include file="../../nav.jsp"%>
-
-<div id="chisiamo" class="col-t-9 col-6">
+</div>
+<div id="chisiamo">
     <b id="b"> Un punto di riferimento nella città di Benevento, da oltre quarant'anni.</b>
     <img class="foto" src="images/famiglia.jpeg" style="float: right; right: -5%;
             margin-top: 3%;">

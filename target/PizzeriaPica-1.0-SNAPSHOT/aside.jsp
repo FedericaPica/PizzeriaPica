@@ -29,9 +29,9 @@
         </c:if>
 
         <li id="totaleSession">
-            Totale: ${totale}
         </li>
-        <li id="order"> Procedi all'ordine</li>
+
+        <li id="order"> <a href="ProcediOrdineServlet"> Procedi all'ordine </a></li>
     </ul>
 
 

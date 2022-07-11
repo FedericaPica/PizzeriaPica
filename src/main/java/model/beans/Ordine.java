@@ -1,6 +1,9 @@
 package model.beans;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class Ordine {
     private int id;
