@@ -14,14 +14,6 @@
     <%@ page import="model.beans.Message" %>
     <title> Home </title>
     <style>
-       #confirm {
-            background: rgba(0, 0, 0, 0.7);
-            text-align: left;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
-            position: relative;
-            left: 150px;
-            max-width: 700px;
-        }
        table {
            text-align: center;
            color: white;
@@ -47,20 +39,21 @@
 </head>
 <body>
 <%@include file="/header.jsp"%>
+<div class="left" style="width:20%; float:left; position:sticky; top:10px;">
 <%@include file="/nav.jsp"%>
-
-<div id="confirm" class="col-t-9 col-6">
+</div>
+<div class="center shadows" style="width:70%; float:left;">
     <form action="ConfermaOrdineServlet" method="post">
   <table>
 
         <tr>
               <td>
-                  <label for="dataRitiro">Scegli una data:</label>
+                  <label for="dataRitiro" style="color:#F18F01">Scegli una data:</label>
                   <input type="date" id="dataRitiro" name="dataRitiro">
               </td>
 
               <td>
-                  <label for="oraRitiro">Scegli un orario:</label>
+                  <label for="oraRitiro" style="color:#F18F01">Scegli un orario:</label>
                   <select name="oraRitiro" id="oraRitiro">
                     <c:forEach items="${orariDisponibili}" var="ora">
                       <option value="${ora.orario}">${ora.orario}</option>
@@ -70,7 +63,7 @@
         </tr>
 
         <tr>
-            <td> Riepilogo</td>
+            <td style="color:#F18F01"> Riepilogo</td>
             <td>
                 <table>
                     <tr>
@@ -89,7 +82,7 @@
                            ${prod.nome}
                         </td>
                         <td>
-                            ${prod.prezzo - ((prod.prezzo*prod.sconto)/100)}
+                            ${prod.prezzo}
                         </td>
                          <td>
                              <c:set var = "sconto"  value = "${prod.sconto}"/>
@@ -101,14 +94,14 @@
                     </c:forEach>
                     <tr>
                         <td></td>
-                        <td>Totale: ${totale}</td>
+                        <td style="color:#F18F01"> <b>Totale: ${totale} &euro; </b></td>
                     </tr>
                 </table>
             </td>
         </tr>
   </table>
   <input type="submit" value="Conferma">
-  <input type="hidden" id="carrelloId" name="carrelloId" value="${carrelloId}">
+  <input type="hidden" id="carrelloId" name="carrelloId" value="${carrelloId2}">
   <input type="hidden" id="totale" name="totale" value="${totale}">
 </form>
 </div>

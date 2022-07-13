@@ -22,15 +22,9 @@ public class ProcediOrdineServlet extends HttpServlet {
     Utente utente = (Utente) session.getAttribute("utente");
     Message message = new Message("", "", INFO);
         CarrelloDAO cDao = new CarrelloDAO();
+        ProdottoCarrelloDAO pCdao = new ProdottoCarrelloDAO();
 
-    if (cDao.doRetrieveByUtenteidAttivo(utente.getId()) == null) {
-        message.setType(ERROR);
-        message.setBody("Non ci sono prodotti nel carrello.");
-        request.setAttribute("message", message);
-        RequestDispatcher dispatcher =
-                request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
-    }
+
 
         if (utente == null) {
             message.setType(ERROR);
@@ -41,29 +35,40 @@ public class ProcediOrdineServlet extends HttpServlet {
             dispatcher.forward(request, response);
         } else {
             int idUtente = utente.getId();
+            int carrelloId = cDao.doRetrieveByUtenteidAttivo(idUtente).getId();
+            ArrayList<ProdottoCarrello> prodotti = (ArrayList<ProdottoCarrello>) pCdao.doRetrieveByCarrelloId(carrelloId);
+            if (prodotti.size() == 0) {
+                message.setType(ERROR);
+                message.setBody("Non ci sono prodotti nel carrello.");
+                request.setAttribute("message", message);
+                RequestDispatcher dispatcher =
+                        request.getRequestDispatcher("index.jsp");
+                dispatcher.forward(request, response);
+            } else {
 
-            Carrello carrelloDb = cDao.doRetrieveByUtenteidAttivo(idUtente);
-            ProdottoCarrelloDAO pcDao = new ProdottoCarrelloDAO();
-            ArrayList<CarrelloVisualizzato> prodottiCarrelloDb = (ArrayList<CarrelloVisualizzato>) pcDao.doRetrieveByCarrelloIdVisualizzato(carrelloDb.getId());
-            request.setAttribute("prodottiCarrelloDb", prodottiCarrelloDb);
+                Carrello carrelloDb = cDao.doRetrieveByUtenteidAttivo(idUtente);
+                ProdottoCarrelloDAO pcDao = new ProdottoCarrelloDAO();
+                ArrayList<CarrelloVisualizzato> prodottiCarrelloDb = (ArrayList<CarrelloVisualizzato>) pcDao.doRetrieveByCarrelloIdVisualizzato(carrelloDb.getId());
+                request.setAttribute("prodottiCarrelloDb", prodottiCarrelloDb);
 
-            int carrelloId = carrelloDb.getId();
-            request.setAttribute("carrelloId", carrelloId);
+                int carrelloId2 = carrelloDb.getId();
+                request.setAttribute("carrelloId2", carrelloId2);
 
-            double totale = 0;
-            for (CarrelloVisualizzato c: prodottiCarrelloDb) {
-                totale += c.getPrezzo();
+                double totale = 0;
+                for (CarrelloVisualizzato c : prodottiCarrelloDb) {
+                    totale += c.getPrezzo();
+                }
+                request.setAttribute("totale", totale);
+
+                OrarioDAO oDao = new OrarioDAO();
+                List<Orario> orariDisponibili = oDao.doRetrieveAll();
+                request.setAttribute("orariDisponibili", orariDisponibili);
+
+
+                RequestDispatcher dispatcher =
+                        request.getRequestDispatcher("WEB-INF/results/conferma_ordine.jsp");
+                dispatcher.forward(request, response);
             }
-            request.setAttribute("totale", totale);
-
-            OrarioDAO oDao = new OrarioDAO();
-            List<Orario> orariDisponibili = oDao.doRetrieveAll();
-            request.setAttribute("orariDisponibili", orariDisponibili);
-
-
-            RequestDispatcher dispatcher =
-                    request.getRequestDispatcher("WEB-INF/results/conferma_ordine.jsp");
-            dispatcher.forward(request, response);
         }
     }
 

@@ -18,7 +18,7 @@
 <body>
     <%@include file="../../../header.jsp"%>
 
-    <div class="col-t-4 col-4 elencoAdmin" >
+    <div class="left elencoAdmin" style="width:40%; float:left;" >
         <div>
             <h3  id="categorieA"> Categorie</h3>
             <button id="inserisciCategoria"> Inserisci nuova categoria </button>
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="elenco2" class="col-8 col-t-8">
+    <div class="elenco2" class="center" style="width:50%; float:left;">
         <table id="mostra">
 
 

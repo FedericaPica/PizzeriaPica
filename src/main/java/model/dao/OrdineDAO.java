@@ -1,10 +1,7 @@
 package model.dao;
 
 import model.ConPool;
-import model.beans.Categoria;
-import model.beans.Orario;
-import model.beans.Ordine;
-import model.beans.StatoOrdine;
+import model.beans.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -87,6 +84,30 @@ public class OrdineDAO {
             int id = rs.getInt(1);
             ordine.setId(id);
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Ordine> doRetrieveByUtenteId(int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id, ritiroDt, totale, utenteid, stato FROM ordine WHERE utenteid=? ORDER BY ordine.id DESC");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Ordine> ordini = new ArrayList<>();
+
+            while (rs.next()) {
+                Ordine o = new Ordine();
+                o.setId(rs.getInt("id"));
+                o.setRitiroDt(rs.getTimestamp("ritiroDt"));
+                o.setTotale(rs.getDouble("totale"));
+                o.setUtenteid(rs.getInt("utenteid"));
+                o.setStato(StatoOrdine.valueOf((rs.getString("stato")).toUpperCase()));
+
+                ordini.add(o);
+            }
+            return (ordini.isEmpty()) ? null : ordini;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.*;
 import model.beans.*;
 import model.dao.CarrelloDAO;
 import model.dao.OrdineDAO;
+import model.dao.ProdottoCarrelloDAO;
+import model.dao.ProdottoDAO;
 
 import java.io.IOException;
 import java.sql.Time;
@@ -13,6 +15,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static model.beans.MessageType.INFO;
@@ -60,13 +63,28 @@ public class ConfermaOrdineServlet extends HttpServlet {
         newCarrello.setUtenteid(utente.getId());
         carDao.doSave(newCarrello);
 
+        ProdottoCarrelloDAO pcDao = new ProdottoCarrelloDAO();
+        ArrayList<ProdottoCarrello> prodottiCarrello = (ArrayList<ProdottoCarrello>) pcDao.doRetrieveByCarrelloId(Integer.parseInt(request.getParameter("carrelloId")));
+        ProdottoDAO pDao = new ProdottoDAO();
+        for( ProdottoCarrello pC: prodottiCarrello) {
+            Prodotto prodotto = pDao.doRetrieveById(pC.getProdottoid());
+            double price = prodotto.getPrezzo()*pC.getQuantita();
+            if (prodotto.getSconto() != 0) {
+                price -= (price * prodotto.getSconto()) / 100;
+            }
+            pC.setPrezzoAcquisto(price);
+            pcDao.doUpdate(pC);
+        }
+
+
+
         message.setType(SUCCESS);
         message.setBody("Ordine effettuato.");
         message.setTitle("Ok!");
         request.setAttribute("message", message);
 
         RequestDispatcher dispatcher =
-                request.getRequestDispatcher("WEB-INF/results/miei_ordini.jsp");
+                request.getRequestDispatcher("/MieiOrdiniServlet");
         dispatcher.forward(request, response);
     }
 

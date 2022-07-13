@@ -1,5 +1,5 @@
 
-<nav  class="col-2 col-t-2" id="navBar">
+<nav id="navBar">
     <ul>
         <c:set var = "utente" value = "${utente}"/>
 
@@ -18,6 +18,7 @@
             </c:when>
 
             <c:when test="${utente != null}">
+                <li> <a href="MieiOrdiniServlet"> I miei ordini</a></li>
                 <li> <a href="LogoutServlet"> Logout </a> </li>
             </c:when>
         </c:choose>

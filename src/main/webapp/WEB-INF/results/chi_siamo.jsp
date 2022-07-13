@@ -9,14 +9,7 @@
     <%@include file="../../includes.html"%>
     <title> Chi siamo </title>
     <style>
-        #chisiamo {
-            background: rgba(0, 0, 0, 0.7);
-            text-align: left;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
-            position: relative;
-            left: 150px;
-            max-width: 700px;
-        }
+
         #b {
             color : #F18F01;
             font-size: 20px;
@@ -26,7 +19,7 @@
         .foto {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.39);
             height: 250px;
-            width: 300px;
+            width: 350px;
             position:relative;
         }
         #maps {
@@ -44,10 +37,12 @@
 </head>
 <body>
 <%@include file="../../header.jsp"%>
-
+<div class="left" style="width:20%; float: left; position:sticky; top:10px;">
 <%@include file="../../nav.jsp"%>
+</div>
 
-<div id="chisiamo" class="col-t-9 col-6">
+
+<div id="chisiamo" class="center shadows" style="width:70%; float: left;">
     <b id="b"> Un punto di riferimento nella città di Benevento, da oltre quarant'anni.</b>
     <img class="foto" src="images/famiglia.jpeg" style="float: right; right: -5%;
             margin-top: 3%;">
@@ -87,6 +82,5 @@
     <p> Le fritture vengono fritte con olio di semi di soia.</p>
 </div>
 
-<%@include file="../../footer.jsp"%>
 </body>
 </html>

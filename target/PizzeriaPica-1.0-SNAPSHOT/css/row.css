@@ -95,6 +95,15 @@ nav li:hover, nav li a:hover, #order:hover{
     background: #F18F01;
 }
 
+.shadows {
+    background: rgba(0, 0, 0, 0.7);
+    text-align: left;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
+    position: relative;
+    left: 150px;
+    max-width: 700px;
+    margin: 30px;
+}
 
 /* aside */
 aside {

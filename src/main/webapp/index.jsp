@@ -32,12 +32,9 @@
 <body>
 <%@include file="header.jsp"%>
 <script>
-
-
-
     function addCart(idProdotto) {
         Swal.fire({
-            title: "Aggiungere all'ordine?",
+            title: "Aggiungere al carrello?",
             showCancelButton: true,
             confirmButtonText: 'S&igrave;',
             cancelButtonText: 'No',
@@ -78,12 +75,13 @@
 </script>
 
     <a href="Temporanea"> admin </a>
-<div class="row">
 
+<div class="left" style="width:20%; float:left; position:sticky; top:10px;">
     <%@include file="nav.jsp"%>
+</div>
 
-
-    <section class="col-t-6 col-6" id="section">
+<div class="center" style="width:50%; float:left;">
+    <section id="section">
         <ul class="tilesWrap">
             <% ArrayList<Categoria> categorie = (ArrayList<Categoria>) application.getAttribute("categorie");
             for (Categoria c : categorie) {%>
@@ -96,11 +94,10 @@
             <% } %>
         </ul>
     </section>
+</div>
 
-
+<div class="right" style="width:30%; float:left; position:sticky; top:10px;">
     <%@include file="aside.jsp"%>
-
-
 </div>
 
 

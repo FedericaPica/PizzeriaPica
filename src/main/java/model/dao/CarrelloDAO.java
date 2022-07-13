@@ -49,6 +49,27 @@ public class CarrelloDAO {
         }
     }
 
+    public Carrello doRetrieveByOrdineId(int ordineId) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id, stato, session_id, ordineid, utenteid FROM carrello WHERE utenteid=?");
+            ps.setInt(1, ordineId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Carrello c = new Carrello();
+                c.setId(rs.getInt("id"));
+                c.setStato(StatoCarrello.valueOf((rs.getString("stato")).toUpperCase()));
+                c.setSession_id(rs.getString("session_id"));
+                c.setOrdineid(rs.getInt("ordineid"));
+                c.setUtenteid(rs.getInt("utenteid"));
+                return c;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void doDelete(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =

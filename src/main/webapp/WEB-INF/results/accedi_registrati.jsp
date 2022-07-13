@@ -41,8 +41,12 @@
 </head>
 <body>
 <%@include file="../../header.jsp"%>
+<div class="left" style="float:left; width:20%">
 <%@include file="../../nav.jsp"%>
-<div id="accedi" class="col-4 col-t-4 container">
+</div>
+
+<div class="center" style="float:left; width:70%">
+<div id="accedi" class="container" style="float:left">
 
     <form id="formAccedi" class="form" onsubmit="return validateLogin()" action="LoginServlet"  method="post" >
         <div class="form-field">
@@ -64,7 +68,7 @@
 </div>
 
 
-<div id="registrati" class="col-5 col-t-5 container">
+<div id="registrati" class="container" style="float:left">
     <form id="formRegistrati" onsubmit="return validateRegistration()" action="RegistrazioneServlet"  method="post"  class="form">
         <div class="form-field">
             <label for="nomeId"> <b> Nome: </b> </label>
@@ -107,6 +111,7 @@
         </div>
 
     </form>
+</div>
 </div>
 <script src="js/validator.js"></script>
 </body>
