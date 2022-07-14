@@ -7,6 +7,7 @@
 <head>
     <%@include file="../../../includes.html"%>
     <link rel="stylesheet" href="css/admin.css" type="text/css">
+    <link rel="stylesheet" href="css/validator.css">
     <title>Modifica categoria</title>
     <style>
         table {
@@ -43,7 +44,7 @@
 <c:set var = "flag" value = "${flag}"/>
     <c:choose>
         <c:when test="${flag == 'insert'}">
-            <form action="InserisciCategoriaDBServlet" method="post">
+            <form  onsubmit="return validateInsertCategoria()" action="InserisciCategoriaDBServlet" method="post" class="form">
         </c:when>
 
         <c:when test="${flag == 'update'}">
@@ -52,26 +53,33 @@
     </c:choose>
 
             <table>
-                <tr>
+                <tr class="form-field">
 
                     <c:choose>
                         <c:when test="${flag == 'insert'}">
+
                             <td><label for="nomeIdInsert"> Nome: </label></td>
-                            <td><input type="text" id="nomeIdInsert" name="nome"></td>
+                            <td><input type="text" id="nomeIdInsert" name="nome" autocomplete="off"></td>
+                                <small></small>
+
                         </c:when>
 
                         <c:when test="${flag == 'update'}">
                             <td><label for="nomeIdUpdate"> Nome: </label></td>
                             <td><input type="text" id="nomeIdUpdate" name="nome" value="${categoria.nome}"></td>
-                        </c:when>
+
+                            </c:when>
                     </c:choose>
 
                 </tr>
-                <tr>
+                <tr class="form-field">
                     <c:choose>
                         <c:when test="${flag == 'insert'}">
+
                             <td><label for="priorityIdInsert"> Priorit&agrave;: </label></td>
-                            <td><input type="number" id="priorityIdInsert" name="priority"></td>
+                            <td><input type="number" id="priorityIdInsert" name="priority" autocomplete="off"></td>
+                            <small></small>
+                        
                         </c:when>
 
                         <c:when test="${flag == 'update'}">
@@ -82,7 +90,9 @@
 
                 </tr>
                 <tr>
+                    <div class="form-field">
                     <td style="width: 100%; border:none; text-align: right"><input type="submit" value="Salva"></td>
+                    </div>
                     <c:if test="${flag == 'update'}">
                         <input type="hidden" name="id" value="${categoria.id}">
                     </c:if>
@@ -90,5 +100,6 @@
             </table>
         </form>
 
+<script src="js/validator.js"></script>
 </body>
 </html>

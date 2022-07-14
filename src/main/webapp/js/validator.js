@@ -45,6 +45,17 @@ function validateLogin(){
     return isFormValid;
 }
 
+function validateInsertCategoria(){
+    let isNomeValid = checkNome(nomeC),
+        isPriorityValid = checkPriority(priorityC);
+
+    let isFormValid =
+        isNomeValid &&
+        isPriorityValid;
+
+    return isFormValid;
+}
+
 const isRequired = value => value === '' ? false : true;
 
 const isBetween = (length, min, max) => length < min || length > max ? false : true;
@@ -203,3 +214,23 @@ const checkConfirmPassword = () => {
 
     return valid;
 };
+
+const checkPriority = (input) => {
+
+    let valid = false;
+    const min = 1,
+        max = 10;
+    const priority = input.value.trim();
+
+    if (!isRequired(priority)) {
+        showError(input, 'Il campo non può essere vuoto.');
+    } else if (!isBetween(priority.length, min, max)) {
+        showError(input, `Deve contenere tra ${min} e ${max} caratteri.`)
+    } else if (!nomeValid(priority)) {
+        showError(input, 'Priorità non valida.');
+    } else {
+        showSuccess(input);
+        valid = true;
+    }
+    return valid;
+}

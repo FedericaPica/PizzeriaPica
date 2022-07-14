@@ -1,12 +1,12 @@
-package controller.admin.ordine;
+package controller.admin.festivo;
 
 import com.google.gson.Gson;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.beans.Message;
-import model.beans.Ordine;
-import model.dao.OrdineDAO;
+import model.dao.FestivoDAO;
+import model.dao.OrarioDAO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,20 +14,17 @@ import java.io.PrintWriter;
 import static model.beans.MessageType.INFO;
 import static model.beans.MessageType.SUCCESS;
 
-@WebServlet(name = "AnnullaOrdineServlet", value = "/AnnullaOrdineServlet")
-public class AnnullaOrdineServlet extends HttpServlet {
+@WebServlet(name = "EliminaFestivoServlet", value = "/EliminaFestivoServlet")
+public class EliminaFestivoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Ordine ordine = new Ordine();
-        int id = Integer.parseInt(request.getParameter("idOrdine"));
+        int festivoId = Integer.parseInt(request.getParameter("festivoId"));
+        FestivoDAO dao = new FestivoDAO();
+        dao.doDelete(festivoId);
         Message message = new Message("", "", INFO);
 
-        OrdineDAO dao = new OrdineDAO();
-        ordine = dao.doRetrieveById(id);
-        dao.doAnnulla(ordine);
-
         message.setType(SUCCESS);
-        message.setBody("Ordine annullato.");
+        message.setBody("Eliminato con successo.");
         message.setTitle("Ok!");
         request.setAttribute("message", message);
 

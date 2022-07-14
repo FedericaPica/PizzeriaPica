@@ -43,6 +43,8 @@ public class InserisciProdottoDBServlet extends HttpServlet {
         message.setTitle("Ok!");
         request.setAttribute("message", message);
 
+        request.setAttribute("check", "categoria");
+
         request.setAttribute("prodotto", prodotto);
         String address = "/WEB-INF/results/admin/form_prodotto.jsp";
         RequestDispatcher dispatcher =

@@ -7,6 +7,7 @@
 <head>
     <%@include file="../../../includes.html"%>
     <link rel="stylesheet" href="css/admin.css" type="text/css">
+    <link rel="stylesheet" href="css/validator.css">
     <title>Modifica categoria</title>
     <style>
         table {
@@ -90,5 +91,6 @@
             </table>
         </form>
 
+<script src="js/validator.js"></script>
 </body>
 </html>

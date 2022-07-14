@@ -71,7 +71,7 @@ public class ProdottoCarrelloDAO {
     public List<CarrelloVisualizzato> doRetrieveByCarrelloIdVisualizzato(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT prodotto.nome, IF(prodotto.sconto > 0, (prodotto.prezzo - (prodotto.prezzo*prodotto_carrello.quantita*prodotto.sconto)/100), prodotto.prezzo*prodotto_carrello.quantita) AS prezzoFinale, prodotto.sconto, prodotto_carrello.quantita" +
+                    con.prepareStatement("SELECT prodotto.nome, IF(prodotto.sconto > 0, (prodotto.prezzo*prodotto_carrello.quantita - (prodotto.prezzo*prodotto_carrello.quantita*prodotto.sconto)/100), prodotto.prezzo*prodotto_carrello.quantita) AS prezzoFinale, prodotto.sconto, prodotto_carrello.quantita" +
                             " FROM prodotto_carrello INNER JOIN prodotto ON prodotto.id=prodotto_carrello.prodottoid" +
                             " WHERE carrelloid=?");
             ps.setInt(1, id);

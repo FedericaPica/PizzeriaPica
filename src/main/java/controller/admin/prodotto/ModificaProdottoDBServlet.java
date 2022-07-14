@@ -43,6 +43,8 @@ public class ModificaProdottoDBServlet extends HttpServlet {
         message.setTitle("Ok!");
         request.setAttribute("message", message);
 
+        request.setAttribute("check", "categoria");
+
         String address;
         request.setAttribute("prodotto", prodotto);
         address = "/WEB-INF/results/admin/form_prodotto.jsp";

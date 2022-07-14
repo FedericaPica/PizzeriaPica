@@ -91,15 +91,15 @@ $(document).ready(function() {
     $("#ordiniA").on("click", function () {
         $("#mostra").empty()
         $.getJSON("MostraOrdiniServlet", function (data) {
-            $("#mostra").append("<tr> <th>Id</th> <th>Ritiro</th> <th>Totale</th> <th>Cliente</th> <th>Stato</th> <th> </th></tr>");
+            $("#mostra").append("<tr> <th>Id</th> <th>Ritiro</th> <th>Totale</th> <th>Cliente</th> <th>Stato</th> <th>Prodotti</th> <th style='width:220px;'> </th></tr>");
             for (let i = 0; i < data.length; i++) {
                 let concat_button;
                 if(data[i].stato == "ATTIVO") {
-                    concat_button = "<td style='max-width: 190px'> <button id='annullaOrdine" + data[i].id + "'> Annulla ordine </button>";
+                    concat_button = "<td style='padding:0px;'> <button style='width=110px; margin-right: 0px;' id='annullaOrdine" + data[i].id + "'> Annulla ordine </button> <button style='width:110px; margin-left:0px;' id='concludiOrdine" + data[i].id + "'> Concludi ordine </button> </td>";
                 } else {
                     concat_button = "<td></td>";
                 }
-                $("#mostra").append("<tr> <td>" + data[i].id + "</td> <td>" + data[i].ritiroDt + "</td> <td>" + data[i].totale + "</td> <td>" + data[i].utenteid + "</td> <td id='stato" + data[i].id + "'>" + (data[i].stato).toLowerCase() + "</td>" +
+                $("#mostra").append("<tr> <td>" + data[i].id + "</td> <td>" + data[i].ritiroDt + "</td> <td>" + data[i].totale + "</td> <td>" + data[i].utenteid + "</td><td id='stato" + data[i].id + "'>" + (data[i].stato).toLowerCase() + "</td> <td><button style='width:110px;' id='mostraProdottiOrdine" + data[i].id + "'> Mostra prodotti </button></td>" +
                           concat_button + "</tr>");
 
                 $('#annullaOrdine' + data[i].id).click(function () {
@@ -114,12 +114,68 @@ $(document).ready(function() {
                         if(items.type == "SUCCESS") {
                             $('#stato' + idOrdine).html("annullato");
                             $('#annullaOrdine' + data[i].id).hide();
+                            $('#concludiOrdine' + data[i].id).hide();
                         }
                     });
+                });
+
+                $('#concludiOrdine' + data[i].id).click(function () {
+                    let idOrdine= data[i].id;
+                    $.get('ConcludiOrdineServlet', {"idOrdine": idOrdine}, function (jsonData) {
+                        items = JSON.parse(jsonData);
+                        Swal.fire({
+                            icon: items.type.toLowerCase(),
+                            title: items.title,
+                            text: items.body
+                        });
+                        if(items.type == "SUCCESS") {
+                            $('#stato' + idOrdine).html("eseguito");
+                            $('#concludiOrdine' + data[i].id).hide();
+                            $('#annullaOrdine' + data[i].id).hide();
+                        }
+                    });
+                });
+
+                $('#mostraProdottiOrdine' + data[i].id).click(function () {
+                    myPopup("MostraProdottiOrdineServlet?ordine=" + data[i].id, "Prodotti", 800, 400);
                 });
             }
         });
     });
+
+    //Festivi
+    $("#festiviA").on("click", function () {
+        $("#mostra").empty()
+        $.getJSON("MostraFestiviServlet", function (data) {
+            $("#mostra").append("<tr> <th>Giorni di chiusura</th><th> </th></tr>");
+            for (let i = 0; i < data.length; i++) {
+
+                $("#mostra").append("<tr id='festivo" + data[i].id + "'> <td>" + data[i].giorno + "</td>" +
+
+                    "<td style='max-width: 190px'> <button id='deleteFestivo" + data[i].id + "'> Elimina </button></td> </tr>");
+
+                $('#deleteFestivo' + data[i].id).click(function () {
+                    let idFestivo= data[i].id;
+                    $.get('EliminaFestivoServlet', {"festivoId": data[i].id}, function (data) {
+                        items = JSON.parse(data);
+                        Swal.fire({
+                            icon: items.type.toLowerCase(),
+                            title: items.title,
+                            text: items.body
+                        });
+                    });
+                    $('#deleteFestivo' + idFestivo).closest("tr").remove();
+                });
+
+
+            }
+        });
+    });
+
+    $("#inserisciFestivo").click(function () {
+        myPopup("InserisciFestivoServlet", "Inserisci", 600, 400);
+    })
+
 
     //Orari
 

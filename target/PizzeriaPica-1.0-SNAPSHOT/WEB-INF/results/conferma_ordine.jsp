@@ -69,7 +69,7 @@
                     <tr>
                         <th>Q.t&agrave;</th>
                         <th>Prodotto</th>
-                        <th>Prezzo</th>
+                        <th>Prezzo scontato</th>
                         <th>Sconto</th>
                     </tr>
 

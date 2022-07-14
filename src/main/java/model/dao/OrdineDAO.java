@@ -33,10 +33,24 @@ public class OrdineDAO {
         }
     }
 
-    public void doUpdate(Ordine ordine) {
+    public void doAnnulla(Ordine ordine) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "UPDATE ordine SET stato='annullato' WHERE id=?");
+            ps.setInt(1, ordine.getId());
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("UPDATE error.");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doConcludi(Ordine ordine) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE ordine SET stato='eseguito' WHERE id=?");
             ps.setInt(1, ordine.getId());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("UPDATE error.");

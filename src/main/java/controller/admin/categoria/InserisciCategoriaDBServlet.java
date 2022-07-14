@@ -43,6 +43,8 @@ public class InserisciCategoriaDBServlet extends HttpServlet {
         message.setTitle("Ok!");
         request.setAttribute("message", message);
 
+        request.setAttribute("check", "categoria");
+
         request.setAttribute("categoria", categoria);
         String address = "/WEB-INF/results/admin/form_categoria.jsp";
         RequestDispatcher dispatcher =

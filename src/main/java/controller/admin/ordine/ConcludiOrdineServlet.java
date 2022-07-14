@@ -14,8 +14,8 @@ import java.io.PrintWriter;
 import static model.beans.MessageType.INFO;
 import static model.beans.MessageType.SUCCESS;
 
-@WebServlet(name = "AnnullaOrdineServlet", value = "/AnnullaOrdineServlet")
-public class AnnullaOrdineServlet extends HttpServlet {
+@WebServlet(name = "ConcludiOrdineServlet", value = "/ConcludiOrdineServlet")
+public class ConcludiOrdineServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Ordine ordine = new Ordine();
@@ -24,10 +24,10 @@ public class AnnullaOrdineServlet extends HttpServlet {
 
         OrdineDAO dao = new OrdineDAO();
         ordine = dao.doRetrieveById(id);
-        dao.doAnnulla(ordine);
+        dao.doConcludi(ordine);
 
         message.setType(SUCCESS);
-        message.setBody("Ordine annullato.");
+        message.setBody("Ordine eseguito.");
         message.setTitle("Ok!");
         request.setAttribute("message", message);
 
@@ -39,6 +39,6 @@ public class AnnullaOrdineServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    doGet(request, response);
     }
 }

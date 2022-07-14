@@ -4,8 +4,16 @@
 
 <aside>
 
-    <p> Carrello </p>
     <ul>
+        <li> <div style="left:0px; margin:0px; color:white;" class="shadows">
+        <table>
+            <tr>
+                <th></th>
+                <th>Prezzo</th>
+                <th>Sconto</th>
+            </tr>
+        </table>
+        </div></li>
         <c:set var = "utente"  value = "${utente}"/>
         <c:if test= "${utente == null}">
 

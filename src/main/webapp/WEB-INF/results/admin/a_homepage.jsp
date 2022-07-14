@@ -27,7 +27,8 @@
 
             <h3 id="ordiniA"> Ordini </h3>
 
-            <h3> Festivi</h3>
+            <h3 id="festiviA"> Festivi</h3>
+            <button id="inserisciFestivo"> Inserisci nuovo giorno di chiusura </button>
 
             <h3 id="orariA"> Orari</h3>
             <button id="inserisciOrario"> Inserisci nuovo slot orario </button>
