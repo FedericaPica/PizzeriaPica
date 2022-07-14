@@ -7,6 +7,7 @@
 <head>
     <%@include file="../../../includes.html"%>
     <link rel="stylesheet" href="css/admin.css" type="text/css">
+    <link rel="stylesheet" href="css/validator.css">
     <title>Inserisci festivo</title>
     <style>
         table {
@@ -40,19 +41,20 @@
     </script>
 </c:if>
 
+<div class="container">
+<form class="form" action="InserisciFestivoDBServlet" method="post" onsubmit="return validateFestivo()">
 
-<form action="InserisciFestivoDBServlet" method="post">
-    <table>
-        <tr>
-            <td><label for="festivoId"> Giorno: </label></td>
-            <td><input type="date" id="festivoId" name="festivo"></td>
+    <div class="form-field">
+            <label for="festivoId"> Giorno: </label>
+            <input type="date" id="festivoId" name="festivo" autocomplete="off">
+        <small></small>
+    </div>
 
-        </tr>
-        <tr>
-            <td style="width: 100%; border:none; text-align: right"><input type="submit" value="Salva"></td>
-        </tr>
-    </table>
+    <div class="form-field">
+            <input type="submit" value="Salva">
+    </div>
 </form>
-
+</div>
+<script src="js/validator.js" ></script>
 </body>
 </html>

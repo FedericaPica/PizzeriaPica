@@ -11,7 +11,20 @@ const passwordA = document.querySelector('#passwordIdAccedi');
 //Categoria
 const nomeC = document.querySelector('#nomeIdInsert');
 const priorityC = document.querySelector('#priorityIdInsert');
+//Orario
+const orario =document.querySelector('#orarioId');
+//Festivo
+const festivo = document.querySelector('#festivoId');
+//Prodotto
+const nomeProdottoI = document.querySelector("#nomeIdInsert");
+const prezzoProdottoI = document.querySelector("#prezzoIdInsert");
+const descrizioneProdottoI = document.querySelector('#descrizioneIdInsert');
+const scontoProdottoI = document.querySelector('#scontoIdInsert');
 
+const nomeProdottoU = document.querySelector("#nomeIdUpdate");
+const prezzoProdottoU = document.querySelector("#prezzoIdUpdate");
+const descrizioneProdottoU = document.querySelector('#descrizioneIdUpdate');
+const scontoProdottoU = document.querySelector('#scontoIdUpdate');
 
 const formR = document.querySelector('#formRegistrati');
 const formA = document.querySelector('#formAccedi');
@@ -56,13 +69,74 @@ function validateInsertCategoria(){
     return isFormValid;
 }
 
+function validateOrario(){
+    let isOrarioValid = checkOrario(orario);
+
+    let isFormValid =
+        isOrarioValid;
+
+    return isFormValid;
+}
+
+function validateFestivo(){
+    let isFestivoValid = checkFestivo(festivo);
+
+    let isFormValid =
+        isFestivoValid;
+    return isFormValid;
+}
+
+function validateInsertProdotto(){
+    let isNomeValid = checkNome(nomeProdottoI)
+        isPrezzoValid = checkPrezzo(prezzoProdottoI)
+        isDescrizioneValid = checkDescrizione(descrizioneProdottoI)
+        isScontoValid = checkSconto(scontoProdottoI);
+
+    let isFormValid =
+        isNomeValid &&
+        isPrezzoValid &&
+        isDescrizioneValid &&
+        isScontoValid;
+
+    return isFormValid;
+}
+
+function validateUpdateProdotto(){
+    let isNomeValid = checkNome(nomeProdottoU)
+    isPrezzoValid = checkPrezzo(prezzoProdottoU)
+    isDescrizioneValid = checkDescrizione(descrizioneProdottoU)
+    isScontoValid = checkSconto(scontoProdottoU);
+
+    let isFormValid =
+        isNomeValid &&
+        isPrezzoValid &&
+        isDescrizioneValid &&
+        isScontoValid;
+
+    return isFormValid;
+}
+
 const isRequired = value => value === '' ? false : true;
 
 const isBetween = (length, min, max) => length < min || length > max ? false : true;
 
 const nomeValid = (nome) => {
-    const re = /[a-zA-Z\s\']/;
+    const re = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
     return re.test(nome);
+}
+const prezzoValid = (prezzo) => {
+    const re = /^[0-9]+(\.)[0-9]+$/;
+    return re.test(prezzo);
+}
+
+const descrizioneValid = (descrizione) => {
+    const re =  /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
+    return re.test(descrizione);
+}
+
+const scontoValid = (sconto) => {
+    const re = /^[0-9][0-9]?$|^100$/;
+    return re.test(sconto);
 }
 
 const priorityValid = (priority) => {
@@ -84,6 +158,16 @@ const isPasswordSecure = (password) => {
     const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
     return re.test(password);
 };
+
+const orarioValid = (orario) => {
+    const re = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/;
+    return re.test(orario);
+}
+
+const festivoValid = (festivo) => {
+    const re = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
+    return re.test(festivo);
+}
 
 const showError = (input, message) => {
     // get the form-field element
@@ -123,6 +207,88 @@ const checkNome = (input) => {
         showError(input, `Deve contenere tra ${min} e ${max} caratteri.`)
     } else if (!nomeValid(nome)) {
         showError(input, 'Nome non valido.');
+    } else {
+        showSuccess(input);
+        valid = true;
+    }
+    return valid;
+}
+
+const checkDescrizione = (input) => {
+
+    let valid = false;
+    const min = 3,
+        max = 500;
+    const descrizione = input.value.trim();
+
+    if (!isRequired(descrizione)) {
+        showError(input, 'Il campo non può essere vuoto.');
+    } else if (!isBetween(descrizione.length, min, max)) {
+        showError(input, `Deve contenere tra ${min} e ${max} caratteri.`)
+    } else if (!descrizioneValid(descrizione)) {
+        showError(input, 'Descrizione non valida.');
+    } else {
+        showSuccess(input);
+        valid = true;
+    }
+    return valid;
+}
+
+const checkOrario = (input) => {
+
+    let valid = false;
+    const orario = input.value.trim();
+
+    if (!isRequired(orario)) {
+        showError(input, 'Il campo non può essere vuoto.');
+     } else if (!orarioValid(orario)) {
+         showError(input, 'Orario non valido.');
+    } else {
+        showSuccess(input);
+        valid = true;
+    }
+    return valid;
+}
+
+const checkSconto = (input) => {
+
+    let valid = false;
+    const sconto = input.value.trim();
+
+    if (!isRequired(sconto)) {
+        showError(input, 'Il campo non può essere vuoto.');
+    } else if (!scontoValid(sconto)) {
+        showError(input, 'Sconto non valido. (Il numero deve essere compreso tra 0 e 100)');
+    } else {
+        showSuccess(input);
+        valid = true;
+    }
+    return valid;
+}
+
+const checkFestivo = (input) => {
+    let valid = false;
+    const festivo = input.value.trim();
+
+    if (!isRequired(festivo)) {
+        showError(input, 'Il campo non può essere vuoto.');
+    } else if (!festivoValid(festivo)) {
+        showError(input, 'Data non valida.');
+    } else {
+        showSuccess(input);
+        valid = true;
+    }
+    return valid;
+}
+
+const checkPrezzo = (input) => {
+    let valid = false;
+    const prezzo = input.value.trim();
+
+    if (!isRequired(prezzo)) {
+        showError(input, 'Il campo non può essere vuoto.');
+    } else if (!prezzoValid(prezzo)) {
+        showError(input, 'Prezzo non valido.');
     } else {
         showSuccess(input);
         valid = true;
@@ -226,7 +392,7 @@ const checkPriority = (input) => {
         showError(input, 'Il campo non può essere vuoto.');
     } else if (!isBetween(priority.length, min, max)) {
         showError(input, `Deve contenere tra ${min} e ${max} caratteri.`)
-    } else if (!nomeValid(priority)) {
+    } else if (!priorityValid(priority)) {
         showError(input, 'Priorità non valida.');
     } else {
         showSuccess(input);

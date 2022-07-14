@@ -47,7 +47,7 @@ public class FestivoDAO {
             PreparedStatement ps = con.prepareStatement(
                     "INSERT INTO festivi (giorno) VALUES(?)",
                     Statement.RETURN_GENERATED_KEYS);
-            //ps.setDate(1, festivo.getGiorno());
+            ps.setDate(1, festivo.getGiorno());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }

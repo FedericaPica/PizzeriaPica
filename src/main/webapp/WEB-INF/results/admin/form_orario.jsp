@@ -7,6 +7,7 @@
 <head>
     <%@include file="../../../includes.html"%>
     <link rel="stylesheet" href="css/admin.css" type="text/css">
+    <link rel="stylesheet" href="css/validator.css">
     <title>Inserisci orario</title>
     <style>
         table {
@@ -40,19 +41,23 @@
     </script>
 </c:if>
 
+<div class="container">
+<form class="form" action="InserisciOrarioDBServlet" method="post" onsubmit="return validateOrario()">
 
-<form action="InserisciOrarioDBServlet" method="post">
-        <table>
-            <tr>
-                 <td><label for="orarioId"> Orario: </label></td>
-                <td><input type="time" id="orarioId" name="orario"></td>
+                <div class="form-field">
+                 <label for="orarioId"> Orario: </label>
+                <input type="time" id="orarioId" name="orario" autocomplete="off">
+                    <small></small>
+                </div>
 
-            </tr>
-            <tr>
-                <td style="width: 100%; border:none; text-align: right"><input type="submit" value="Salva"></td>
-            </tr>
-        </table>
+
+
+                <div class="form-field">
+               <input type="submit" value="Salva">
+                </div>
+
     </form>
-
+</div>
+<script src="js/validator.js" ></script>
 </body>
 </html>

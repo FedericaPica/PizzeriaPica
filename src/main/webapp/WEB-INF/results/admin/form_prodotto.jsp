@@ -7,6 +7,7 @@
 <head>
     <%@include file="../../../includes.html"%>
     <link rel="stylesheet" href="css/admin.css" type="text/css">
+    <link rel="stylesheet" href="css/validator.css">
     <title>Modifica categoria</title>
     <style>
         table {
@@ -39,78 +40,94 @@
         };
     </script>
 </c:if>
-
+<div class="container">
 <c:set var = "flag" value = "${flag}"/>
 <c:choose>
 <c:when test="${flag == 'insert'}">
-<form action="InserisciProdottoDBServlet" method="post">
+<form action="InserisciProdottoDBServlet" method="post" onsubmit="return validateInsertProdotto()">
     </c:when>
 
     <c:when test="${flag == 'update'}">
-    <form action="ModificaProdottoDBServlet" method="post">
+    <form action="ModificaProdottoDBServlet" method="post" onsubmit="return validateUpdateProdotto()">
         </c:when>
         </c:choose>
 
-        <table>
-            <tr>
 
                 <c:choose>
                     <c:when test="${flag == 'insert'}">
-                        <td><label for="nomeIdInsert"> Nome: </label></td>
-                        <td><input type="text" id="nomeIdInsert" name="nome"></td>
+                        <div class="form-field">
+                        <label for="nomeIdInsert"> Nome: </label>
+                        <input type="text" id="nomeIdInsert" name="nome" autocomplete="off">
+                            <small></small>
+                        </div>
                     </c:when>
 
                     <c:when test="${flag == 'update'}">
-                        <td><label for="nomeIdUpdate"> Nome: </label></td>
-                        <td><input type="text" id="nomeIdUpdate" name="nome" value="${prodotto.nome}"></td>
+                    <div class="form-field">
+                        <label for="nomeIdUpdate"> Nome: </label>
+                        <input type="text" id="nomeIdUpdate" name="nome" value="${prodotto.nome}" autocomplete="off">
+                        <small></small>
+                    </div>
                     </c:when>
                 </c:choose>
 
-            </tr>
-            <tr>
                 <c:choose>
                     <c:when test="${flag == 'insert'}">
-                        <td><label for="prezzoIdInsert"> Prezzo: </label></td>
-                        <td><input type="text" id="prezzoIdInsert" name="prezzo"></td>
+                        <div class="form-field">
+                        <label for="prezzoIdInsert"> Prezzo: </label>
+                        <input type="text" id="prezzoIdInsert" name="prezzo" autocomplete="off">
+                            <small></small>
+                        </div>
                     </c:when>
 
                     <c:when test="${flag == 'update'}">
-                        <td><label for="prezzoIdUpdate"> Prezzo: </label></td>
-                        <td><input type="text" id="prezzoIdUpdate" name="prezzo" value="${prodotto.prezzo}"></td>
-                    </c:when>
+                    <div class="form-field">
+                       <label for="prezzoIdUpdate"> Prezzo: </label>
+                        <input type="text" id="prezzoIdUpdate" name="prezzo" value="${prodotto.prezzo}" autocomplete="off">
+                    <small></small>
+                    </div>
+                        </c:when>
                 </c:choose>
 
-            </tr>
-            <tr>
                 <c:choose>
                     <c:when test="${flag == 'insert'}">
-                        <td><label for="descrizioneIdInsert"> Descrizione: </label></td>
-                        <td><textarea id="descrizioneIdInsert" name="descrizione" rows="3" cols="30"></textarea></td>
-                    </c:when>
+                        <div class="form-field">
+                        <label for="descrizioneIdInsert"> Descrizione: </label>
+                        <textarea id="descrizioneIdInsert" name="descrizione" rows="3" cols="30"></textarea>
+                            <small></small>
+                        </div>
+                            </c:when>
 
                     <c:when test="${flag == 'update'}">
-                        <td><label for="descrizioneIdUpdate"> Descrizione: </label></td>
-                        <td><textarea id="descrizioneIdUpdate" name="descrizione" rows="3" cols="30">${prodotto.descrizione}</textarea></td>
-                    </c:when>
+            <div class="form-field">
+                        <label for="descrizioneIdUpdate"> Descrizione: </label>
+                        <textarea id="descrizioneIdUpdate" name="descrizione" rows="3" cols="30">${prodotto.descrizione}</textarea>
+                <small></small>
+            </div>
+                </c:when>
                 </c:choose>
 
-            </tr>
-            <tr>
                 <c:choose>
                     <c:when test="${flag == 'insert'}">
-                        <td><label for="scontoIdInsert"> Sconto: </label></td>
-                        <td><input type="number" id="scontoIdInsert" name="sconto"></td>
+                        <div class="form-field">
+                        <label for="scontoIdInsert"> Sconto: </label>
+                        <input type="number" id="scontoIdInsert" name="sconto">
+                            <small></small>
+                        </div>
                     </c:when>
 
                     <c:when test="${flag == 'update'}">
-                        <td><label for="scontoIdUpdate"> Sconto: </label></td>
-                        <td><input type="number" id="scontoIdUpdate" name="sconto" value="${prodotto.sconto}"></td>
+                        <div class="form-field">
+                        <label for="scontoIdUpdate"> Sconto: </label>
+                        <input type="number" id="scontoIdUpdate" name="sconto" value="${prodotto.sconto}">
+            <small></small>
+</div>
                     </c:when>
                 </c:choose>
 
-            </tr>
-            <tr>
-                <td style="width: 100%; border:none; text-align: right"><input type="submit" value="Salva"></td>
+                <div class="form-field">
+                <input type="submit" value="Salva">
+                </div>
                 <c:choose>
                     <c:when test="${flag == 'insert'}">
                         <input type="hidden" name="idCat" value="${idCategoria}">
@@ -119,9 +136,18 @@
                         <input type="hidden" name="idProd" value="${prodotto.id}">
                     </c:when>
                 </c:choose>
-            </tr>
-        </table>
-    </form>
 
+            <c:choose>
+            <c:when test="${flag == 'insert'}">
+            </form>
+                </c:when>
+
+                <c:when test="${flag == 'update'}">
+                </form>
+                    </c:when>
+                    </c:choose>
+
+</div>
+<script src="js/validator.js" ></script>
 </body>
 </html>

@@ -23,7 +23,6 @@ public class InserisciFestivoDBServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String giorno = request.getParameter("festivo");
-        System.out.println(giorno);
         Date giornoF = null;
         try {
             giornoF = new SimpleDateFormat("yyyy-MM-dd").parse(giorno);
@@ -34,7 +33,8 @@ public class InserisciFestivoDBServlet extends HttpServlet {
         Message message = new Message("", "", INFO);
 
         Festivi festivo = new Festivi();
-        festivo.setGiorno(giornoF);
+        java.sql.Date sqlDate = new java.sql.Date(giornoF.getTime());
+        festivo.setGiorno(sqlDate);
         FestivoDAO dao = new FestivoDAO();
         dao.doSave(festivo);
 
