@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,7 +28,7 @@ public class InserisciOrarioDBServlet extends HttpServlet {
         Message message = new Message("", "", INFO);
 
         try {
-            InserisciOrarioDBServlet.validateOrario("orario", orarioDaValidare, "^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$");
+            InserisciOrarioDBServlet.validateOrario("orario", Optional.of(orarioDaValidare), "^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$");
         } catch (Exception e) {
             message.setBody(e.getMessage());
             message.setTitle("Errore");
@@ -59,12 +60,13 @@ public class InserisciOrarioDBServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    private static void validateOrario(String fieldName, String fieldValue, String regex) throws Exception{
+    private static void validateOrario(String fieldName, Optional<String> fieldValue, String regex) throws Exception{
         final Pattern pattern = Pattern.compile(regex);
-        final Matcher matcher = pattern.matcher(fieldValue);
+        String realValue = fieldValue.orElse(null);
+        final Matcher matcher = pattern.matcher(realValue);
 
-        if (fieldValue.isEmpty() || fieldValue == null)
-            throw new Exception("Il campo " + fieldName + " ha non pu&ograve; essere vuoto!");
+        if (realValue.isEmpty() || realValue == null)
+            throw new Exception("Il campo " + fieldName + " ha una lunghezza non regolare.");
 
 
         if (!matcher.find())

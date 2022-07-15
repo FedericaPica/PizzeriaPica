@@ -23,7 +23,7 @@
 <body>
 
 <c:set var = "mess"  value = "${message.type}"/>
-<c:if test = "${mess == 'SUCCESS'}">
+<c:if test = "${mess != null}">
     <script>
         $(document).ready(function() {
             $(".swal2-confirm").click(function() {

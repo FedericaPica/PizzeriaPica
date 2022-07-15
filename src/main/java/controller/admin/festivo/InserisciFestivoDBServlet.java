@@ -14,33 +14,44 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import static model.beans.MessageType.INFO;
-import static model.beans.MessageType.SUCCESS;
+import static model.beans.MessageType.*;
 
 @WebServlet(name = "InserisciFestivoDBServlet", value = "/InserisciFestivoDBServlet")
 public class InserisciFestivoDBServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String giorno = request.getParameter("festivo");
-        Date giornoF = null;
-        try {
-            giornoF = new SimpleDateFormat("yyyy-MM-dd").parse(giorno);
-            System.out.println(giornoF);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         Message message = new Message("", "", INFO);
+        try {
+            InserisciFestivoDBServlet.validateField("giorno festivo", Optional.of(giorno), "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$");
+        } catch (Exception e) {
+            message.setBody(e.getMessage());
+            message.setTitle("Errore");
+            message.setType(ERROR);
+        }
+        Date giornoF = null;
 
-        Festivi festivo = new Festivi();
-        java.sql.Date sqlDate = new java.sql.Date(giornoF.getTime());
-        festivo.setGiorno(sqlDate);
-        FestivoDAO dao = new FestivoDAO();
-        dao.doSave(festivo);
+        if (!message.getType().equals("ERROR")) {
+            try {
+                giornoF = new SimpleDateFormat("yyyy-MM-dd").parse(giorno);
+                System.out.println(giornoF);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Festivi festivo = new Festivi();
+            java.sql.Date sqlDate = new java.sql.Date(giornoF.getTime());
+            festivo.setGiorno(sqlDate);
+            FestivoDAO dao = new FestivoDAO();
+            dao.doSave(festivo);
 
-        message.setType(SUCCESS);
-        message.setBody("Inserito con successo.");
-        message.setTitle("Ok!");
+            message.setType(SUCCESS);
+            message.setBody("Inserito con successo.");
+            message.setTitle("Ok!");
+        }
         request.setAttribute("message", message);
 
         String address = "/WEB-INF/results/admin/form_festivo.jsp";
@@ -52,5 +63,19 @@ public class InserisciFestivoDBServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
+    }
+
+    private static void validateField(String fieldName, Optional<String> fieldValue, String regex) throws Exception{
+        final Pattern pattern = Pattern.compile(regex);
+        String realValue = fieldValue.orElse(null);
+        final Matcher matcher = pattern.matcher(realValue);
+
+        if (fieldValue == null || fieldValue.equals(""))
+            throw new Exception("Il campo " + fieldName + " ha una lunghezza non regolare.");
+
+
+        if (!matcher.find())
+            throw new Exception("Il campo " + fieldName +  " non rispetta il formato richiesto.");
+
     }
 }

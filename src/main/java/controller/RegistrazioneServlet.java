@@ -9,6 +9,7 @@ import model.beans.Utente;
 import model.dao.UtenteDAO;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,11 +30,13 @@ public class RegistrazioneServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         try {
-            RegistrazioneServlet.validateField("Nome", nome, "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u", 3, 255);
-            RegistrazioneServlet.validateField("Cognome", cognome, "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u", 3, 255);
-            RegistrazioneServlet.validateField("Email", email, "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", 5, 255);
-            RegistrazioneServlet.validateField("Password", password, "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})", 8, 255);
-            RegistrazioneServlet.validateField("Telefono", telefono, "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[\\s0-9]*$", 2, 255);
+            if (nome == null || cognome == null ||  email == null || password == null || passwordConferma == null || telefono == null)
+                throw new Exception("Tutti i campi sono obbligatori.");
+            RegistrazioneServlet.validateField("Nome", Optional.of(nome), "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", 3, 255);
+            RegistrazioneServlet.validateField("Cognome", Optional.of(cognome), "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", 3, 255);
+            RegistrazioneServlet.validateField("Email", Optional.of(email), "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", 5, 255);
+            RegistrazioneServlet.validateField("Password", Optional.of(password), "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})", 8, 255);
+            RegistrazioneServlet.validateField("Telefono", Optional.of(telefono), "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[\\s0-9]*$", 2, 255);
             if (!(password.equals(passwordConferma)))
                 throw new Exception("Le due password devono coincidere.");
         } catch (Exception e) {
@@ -73,11 +76,15 @@ public class RegistrazioneServlet extends HttpServlet {
     }
 
 
-    private static void validateField(String fieldName, String fieldValue, String regex, int minLength, int maxLength) throws Exception{
+    private static void validateField(String fieldName, Optional<String> fieldValue, String regex, int minLength, int maxLength) throws Exception{
         final Pattern pattern = Pattern.compile(regex);
-        final Matcher matcher = pattern.matcher(fieldValue);
+        String realValue = null;
+        if (fieldValue.isPresent())
+            realValue = fieldValue.get();
 
-        if (fieldValue.isEmpty() || fieldValue == null || fieldValue.length() < minLength || fieldValue.length() > maxLength)
+        final Matcher matcher = pattern.matcher(realValue);
+
+        if (realValue.isEmpty() || realValue.length() < minLength || realValue.length() > maxLength)
             throw new Exception("Il campo " + fieldName + " ha una lunghezza non regolare.");
 
 
