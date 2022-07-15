@@ -23,7 +23,6 @@
 <body>
 
 <c:set var = "mess"  value = "${message.type}"/>
-<c:if test = "${mess == 'SUCCESS'}">
     <script>
         $(document).ready(function() {
             $(".swal2-confirm").click(function() {
@@ -39,7 +38,6 @@
             window.opener.location.reload();
         };
     </script>
-</c:if>
 
 <div class="container">
 <form class="form" action="InserisciOrarioDBServlet" method="post" onsubmit="return validateOrario()">
