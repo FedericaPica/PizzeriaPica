@@ -1,0 +1,150 @@
+@media only screen and (max-width: 575px) {
+    .left {
+        width: 5%;
+        float:left;
+        position:sticky;
+        top:10px;
+    }
+    .center {
+        width:90%;
+        float:left;
+    }
+    #burgerIndex {
+        display:block;
+    }
+    .right {
+        width:5%;
+        float:left;
+        position:sticky;
+        top:10px;
+    }
+    nav li, aside li {
+        font-size: 15px;
+    }
+    .tilesWrap li h3 {
+        font-size: 15px;
+    }
+    .tilesWrap li p {
+        font-size: 17px;
+    }
+    nav ul {
+        display:none;
+    }
+    aside ul {
+        display:none;
+    }
+    #order, #totale {
+        font-size:  80%;
+    }
+    #header {
+        width: 100%;
+    }
+    .mySlides{
+        width: 80%;
+        height:10%;
+        float:left;
+    }
+
+}
+
+@media only screen and (min-width: 576px) {
+    .left {
+        width: 5%;
+        float:left;
+        position:sticky;
+        top:10px;
+    }
+    .center {
+        width:65%;
+        float:left;
+    }
+    #burgerIndex {
+        display:block;
+    }
+    .right {
+        width:30%;
+        float:left;
+        position:sticky;
+        top:10px;
+    }
+    nav li, aside li {
+        font-size: 70%;
+    }
+    #order, #totale {
+        font-size:  80%;
+    }
+    .tilesWrap li h3 {
+        font-size: 20px;
+    }
+    .tilesWrap li p {
+        font-size: 13px;
+    }
+    nav ul {
+        display:none;
+    }
+    aside ul {
+        display:block;
+    }
+    #header {
+        width: 100%;
+    }
+    .mySlides{
+        width: 80%;
+        height:10%;
+        float:left;
+    }
+
+}
+
+@media only screen and (min-width: 992px) {
+    .left {
+        width: 20%;
+        float: left;
+        position: sticky;
+        top: 10px;
+    }
+
+    .center {
+        width: 50%;
+        float: left;
+    }
+    #burgerIndex {
+        display:none;
+    }
+
+    .right {
+        width: 30%;
+        float: left;
+        position: sticky;
+        top: 10px;
+    }
+
+    nav li, aside li {
+        font-size: 20px;
+    }
+
+    .tilesWrap li h3 {
+        font-size: 30px;
+    }
+    .tilesWrap li p {
+        font-size: 17px;
+    }
+    nav ul {
+        display:block;
+    }
+    aside ul {
+        display:block;
+    }
+    #order, #totale {
+        font-size:  20px;
+    }
+    #header {
+        width: 100%;
+    }
+    .mySlides{
+        width: 80%;
+        height:10%;
+        float:left;
+    }
+}
+

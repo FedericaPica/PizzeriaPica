@@ -1,5 +1,5 @@
 
-<nav id="navBar" style="height: 100%">
+<nav id="navBar">
     <ul>
         <c:set var = "utente" value = "${utente}"/>
 
@@ -26,4 +26,7 @@
         <li> <a href="index.jsp"> Home </a></li>
 
     </ul>
+    <div id="burgerIndex">
+        <button>O</button>
+    </div>
 </nav>

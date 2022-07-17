@@ -168,7 +168,7 @@ const emailValid = (email) => {
 };
 
 const telefonoValid = (telefono) => {
-    const re = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[\s0-9]*$/;
+    const re = /^\d{3,4}\-\d{5,9}$/;
     return re.test(telefono);
 }
 

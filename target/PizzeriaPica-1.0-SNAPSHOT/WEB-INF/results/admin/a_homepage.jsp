@@ -6,6 +6,7 @@
     <%@ page import="model.beans.Message" %>
     <%@include file="../../../includes.html"%>
     <link rel="stylesheet" href="css/admin.css" type="text/css">
+    <link rel="stylesheet" href="css/responsive_admin.css">
     <%@ page import="model.beans.Prodotto" %>
     <%@ page import="java.util.ArrayList" %>
     <%@ page import="model.beans.Categoria" %>
@@ -18,8 +19,8 @@
 <body>
     <%@include file="../../../header.jsp"%>
 
-    <div class="left elencoAdmin" style="width:40%; float:left;" >
-        <div>
+    <div class="left elencoAdmin" >
+        <div id="adminMenu">
             <h3  id="categorieA"> Categorie</h3>
             <button id="inserisciCategoria"> Inserisci nuova categoria </button>
 
@@ -35,10 +36,13 @@
 
             <h3> <a href="LogoutServlet"> Logout </a></h3>
         </div>
+
+            <button id="burgerAdmin">O</button>
+
     </div>
 
-    <div class="elenco2" class="center" style="width:50%; float:left;">
-        <table id="mostra">
+    <div class="elenco2 center" >
+        <table id="mostra" style="max-width: 100%;">
 
 
         </table>

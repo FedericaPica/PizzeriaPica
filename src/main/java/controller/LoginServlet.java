@@ -42,6 +42,11 @@ public class LoginServlet extends HttpServlet {
             UtenteDAO dao = new UtenteDAO();
             utente = dao.doRetrieveByEmailPassword(email, password);
 
+            if (utente != null && utente.isAdmin()) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/results/admin/a_homepage.jsp");
+                dispatcher.forward(request, response);
+            }
+
             if (utente != null && !utente.isAdmin()) {
                 session.setAttribute("utente", utente);
                 message.setType(SUCCESS);
@@ -112,10 +117,6 @@ public class LoginServlet extends HttpServlet {
             if (!utente.isAdmin()) {
                 RequestDispatcher dispatcher =
                         request.getRequestDispatcher("index.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                RequestDispatcher dispatcher =
-                        request.getRequestDispatcher("WEB-INF/results/admin/a_homepage.jsp");
                 dispatcher.forward(request, response);
             }
         } else {

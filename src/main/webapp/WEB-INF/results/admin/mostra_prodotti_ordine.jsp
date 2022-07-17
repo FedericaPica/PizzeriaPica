@@ -7,6 +7,7 @@
 <head>
     <%@include file="../../../includes.html"%>
     <link rel="stylesheet" href="css/admin.css" type="text/css">
+    <link rel="stylesheet" href="css/responsive_admin.css">
     <title>Prodotti</title>
     <style>
         table {

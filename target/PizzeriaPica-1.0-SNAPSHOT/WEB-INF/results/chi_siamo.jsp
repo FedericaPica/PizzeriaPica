@@ -7,6 +7,7 @@
 <html>
 <head>
     <%@include file="../../includes.html"%>
+    <link rel="stylesheet" href="css/responsive.css">
     <title> Chi siamo </title>
     <style>
 

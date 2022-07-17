@@ -6,6 +6,7 @@
 <html>
 <head>
     <%@include file="/includes.html"%>
+    <link rel="stylesheet" href="css/responsive.css">
     <%@ page import="model.beans.Prodotto" %>
     <%@ page import="model.beans.Utente" %>
     <%@ page import="java.util.ArrayList" %>

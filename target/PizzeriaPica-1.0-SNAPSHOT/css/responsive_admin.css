@@ -1,0 +1,148 @@
+@media only screen and (max-width: 575px) {
+    .left {
+        width: 5%;
+        float: left;
+
+    }
+    #adminMenu, #mostra {
+        font-size:80%;
+    }
+    #adminMenu {
+        display: none;
+    }
+    #burgerAdmin {
+        display:block;
+    }
+    table td, table th {
+        padding: 3px;
+    }
+
+    .center {
+        width: 85%;
+        float: left;
+    }
+
+
+    nav li {
+        font-size: 15px;
+    }
+
+    nav ul {
+        display:block;
+    }
+    button {
+        font-size:70%;
+    }
+    .elencoAdmin {
+        margin: 7px;
+    }
+
+    #header {
+        width: 100%;
+    }
+    .mySlides{
+        width: 80%;
+        height:10%;
+        float:left;
+    }
+
+
+}
+
+@media only screen and (min-width: 576px) {
+    .left {
+        width: 30%;
+        float: left;
+
+    }
+#adminMenu, #mostra  {
+    font-size:80%;
+}
+#adminMenu {
+    display: block;
+}
+    #burgerAdmin {
+        display:none;
+    }
+    table td, table th {
+        padding: 4px;
+    }
+    .center {
+        width: 60%;
+        float: left;
+    }
+
+
+    nav li {
+        font-size: 70%;
+    }
+
+    nav ul {
+        display:block;
+    }
+    button {
+        font-size:70%;
+    }
+    .elencoAdmin {
+        margin: 10px;
+    }
+
+    #header {
+        width: 100%;
+    }
+    .mySlides{
+        width: 80%;
+        height:10%;
+        float:left;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .left {
+        width: 40%;
+        float: left;
+
+    }
+
+    .center {
+        width: 50%;
+        float: left;
+    }
+
+    #adminMenu{
+        font-size:30px;
+        display: block;
+    }
+    #burgerAdmin {
+        display:none;
+    }
+    #mostra {
+        font-size:15px;
+    }
+    table td, table th {
+        padding: 8px;
+    }
+    nav li {
+        font-size: 20px;
+    }
+
+    nav ul {
+        display:block;
+    }
+button {
+    font-size:14px;
+}
+.elencoAdmin {
+    margin: 30px;
+}
+
+    #header {
+        width: 100%;
+    }
+    .mySlides{
+        width: 80%;
+        height:10%;
+        float:left;
+    }
+}
+

@@ -8,6 +8,7 @@
     <%@include file="../../../includes.html"%>
     <link rel="stylesheet" href="css/admin.css" type="text/css">
     <link rel="stylesheet" href="css/validator.css">
+    <link rel="stylesheet" href="css/responsive_admin.css">
     <title>Inserisci orario</title>
     <style>
         table {

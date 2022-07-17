@@ -6,6 +6,7 @@
 <html>
 <head>
     <%@include file="../../includes.html"%>
+    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/validator.css">
     <title>Accedi o Registrati</title>
         <style>
@@ -41,11 +42,11 @@
 </head>
 <body>
 <%@include file="../../header.jsp"%>
-<div class="left" style="float:left; width:20%">
+<div class="left">
 <%@include file="../../nav.jsp"%>
 </div>
 
-<div class="center" style="float:left; width:70%">
+<div class="center">
 <div id="accedi" class="container" style="float:left">
 
     <form id="formAccedi" class="form" onsubmit="return validateLogin()" action="LoginServlet"  method="post" >
@@ -102,7 +103,7 @@
 
         <div class="form-field">
             <label for="telefonoId"> <b> Telefono:</b>  </label>
-             <input type="text" id="telefonoId" name="telefono" autocomplete="off" value="+(39)">
+             <input type="text" id="telefonoId" placeholder="prefisso-numero" name="telefono" autocomplete="off">
             <small></small>
         </div>
 

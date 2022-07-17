@@ -39,7 +39,7 @@ public class RegistrazioneServlet extends HttpServlet {
             RegistrazioneServlet.validateField("Cognome", Optional.of(cognome), "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", 3, 255);
             RegistrazioneServlet.validateField("Email", Optional.of(email), "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", 5, 255);
             RegistrazioneServlet.validateField("Password", Optional.of(password), "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})", 8, 255);
-            RegistrazioneServlet.validateField("Telefono", Optional.of(telefono), "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[\\s0-9]*$", 2, 255);
+            RegistrazioneServlet.validateField("Telefono", Optional.of(telefono), "^\\d{3,4}-\\d{5,9}$", 2, 255);
             if (!(password.equals(passwordConferma)))
                 throw new Exception("Le due password devono coincidere.");
         } catch (Exception e) {

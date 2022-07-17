@@ -6,6 +6,7 @@
 <html>
 <head>
    <%@include file="includes.html"%>
+    <link rel="stylesheet" href="css/responsive_index.css">
     <%@ page import="model.beans.Prodotto" %>
     <%@ page import="model.beans.Utente" %>
     <%@ page import="java.util.ArrayList" %>
@@ -84,11 +85,12 @@
 
     <a href="Temporanea"> admin </a>
 
-<div class="left" style="width:20%; float:left; position:sticky; top:10px;">
+<div class="left" >
     <%@include file="nav.jsp"%>
 </div>
 
-<div class="center" style="width:50%; float:left;">
+<div class="center">
+
     <section id="section">
         <ul class="tilesWrap">
             <% ArrayList<Categoria> categorie = (ArrayList<Categoria>) application.getAttribute("categorie");
@@ -102,9 +104,12 @@
             <% } %>
         </ul>
     </section>
+
+
+
 </div>
 
-<div class="right" style="width:30%; float:left; position:sticky; top:10px;">
+<div class="right">
     <%@include file="aside.jsp"%>
 </div>
 
