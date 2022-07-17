@@ -28,6 +28,8 @@ public class InserisciOrarioDBServlet extends HttpServlet {
         Message message = new Message("", "", INFO);
 
         try {
+            if (orarioDaValidare == null)
+                throw new Exception("Tutti i campi sono obbligatori.");
             InserisciOrarioDBServlet.validateOrario("orario", Optional.of(orarioDaValidare), "^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$");
         } catch (Exception e) {
             message.setBody(e.getMessage());
@@ -64,6 +66,10 @@ public class InserisciOrarioDBServlet extends HttpServlet {
         final Pattern pattern = Pattern.compile(regex);
         String realValue = fieldValue.orElse(null);
         final Matcher matcher = pattern.matcher(realValue);
+        OrarioDAO orarioDAO = new OrarioDAO();
+
+        if (orarioDAO.doRetrieveByOrario(realValue) != null)
+            throw new Exception("L'orario è già presente nella lista degli orari disponibili.");
 
         if (realValue.isEmpty() || realValue == null)
             throw new Exception("Il campo " + fieldName + " ha una lunghezza non regolare.");

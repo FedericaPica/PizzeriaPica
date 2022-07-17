@@ -1,6 +1,7 @@
 package model.dao;
 
 import model.ConPool;
+import model.beans.Categoria;
 import model.beans.Festivi;
 import model.beans.Orario;
 
@@ -26,6 +27,24 @@ public class FestivoDAO {
             return (listaFestivi.isEmpty()) ? null : listaFestivi;
         } catch (SQLException e) {
             System.out.println(e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Festivi doRetrieveByData(String giorno) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id, giorno FROM festivi WHERE giorno=?");
+            ps.setString(1, giorno);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Festivi f = new Festivi();
+                f.setId(rs.getInt("id"));
+                f.setGiorno(rs.getDate("giorno"));
+                return f;
+            }
+            return null;
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

@@ -30,6 +30,18 @@ public class ProdottoCarrelloDAO {
         }
     }
 
+    public void doDelete(int prodottoId, int carrelloId) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("DELETE FROM prodotto_carrello WHERE prodottoid=? AND carrelloid = ?");
+            ps.setInt(1, prodottoId);
+            ps.setInt(2, carrelloId);
+            ps.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void doUpdateQuantita(ProdottoCarrello prodottoCarrello, int quantita) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -71,7 +83,7 @@ public class ProdottoCarrelloDAO {
     public List<CarrelloVisualizzato> doRetrieveByCarrelloIdVisualizzato(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT prodotto.nome, IF(prodotto.sconto > 0, (prodotto.prezzo*prodotto_carrello.quantita - (prodotto.prezzo*prodotto_carrello.quantita*prodotto.sconto)/100), prodotto.prezzo*prodotto_carrello.quantita) AS prezzoFinale, prodotto.sconto, prodotto_carrello.quantita" +
+                    con.prepareStatement("SELECT prodotto.id as prodottoId, prodotto.nome, IF(prodotto.sconto > 0, (prodotto.prezzo*prodotto_carrello.quantita - (prodotto.prezzo*prodotto_carrello.quantita*prodotto.sconto)/100), prodotto.prezzo*prodotto_carrello.quantita) AS prezzoFinale, prodotto.sconto, prodotto_carrello.quantita" +
                             " FROM prodotto_carrello INNER JOIN prodotto ON prodotto.id=prodotto_carrello.prodottoid" +
                             " WHERE carrelloid=?");
             ps.setInt(1, id);
@@ -80,6 +92,7 @@ public class ProdottoCarrelloDAO {
 
             while (rs.next()) {
                 CarrelloVisualizzato cV = new CarrelloVisualizzato();
+                cV.setProdottoId(rs.getInt("prodottoId"));
                 cV.setNome(rs.getString("prodotto.nome"));
                 cV.setPrezzo(rs.getDouble("prezzoFinale"));
                 cV.setSconto(rs.getInt("prodotto.sconto"));
@@ -115,7 +128,7 @@ public class ProdottoCarrelloDAO {
     public List<OrdineVisualizzato> doRetrieveByOrdineIdVisualizzato(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT ordine.id AS ordineid, prodotto_carrello.prezzo_acquisto, prodotto.nome, prodotto_carrello.quantita " +
+                    con.prepareStatement("SELECT ordine.id AS ordineid, prodotto_carrello.carrelloId as carrelloId, prodotto.id as prodottoId, prodotto_carrello.prezzo_acquisto, prodotto.nome, prodotto_carrello.quantita " +
                             "FROM carrello INNER JOIN ordine ON ordine.id=carrello.ordineid " +
                             "INNER JOIN prodotto_carrello ON prodotto_carrello.carrelloid=carrello.id " +
                             "INNER JOIN prodotto ON prodotto.id=prodotto_carrello.prodottoid " +
@@ -128,6 +141,8 @@ public class ProdottoCarrelloDAO {
             while (rs.next()) {
                 OrdineVisualizzato oV = new OrdineVisualizzato();
                 oV.setOrdineId(rs.getInt("ordineid"));
+                oV.setCarrelloId(rs.getInt("carrelloId"));
+                oV.setProdottoId(rs.getInt("prodottoId"));
                 oV.setPrezzoAcquisto(rs.getDouble("prodotto_carrello.prezzo_acquisto"));
                 oV.setNomeProdotto(rs.getString("prodotto.nome"));
                 oV.setQuantita(rs.getInt("prodotto_carrello.quantita"));

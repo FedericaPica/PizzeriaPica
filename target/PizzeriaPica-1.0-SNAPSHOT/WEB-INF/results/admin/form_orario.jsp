@@ -23,6 +23,7 @@
 <body>
 
 <c:set var = "mess"  value = "${message.type}"/>
+<c:if test = "${mess != null}">
     <script>
         $(document).ready(function() {
             $(".swal2-confirm").click(function() {
@@ -32,13 +33,13 @@
         Swal.fire({
             icon: '${fn:toLowerCase(mess)}',
             title: '${message.title}',
-            text: '${message.body}'
+            text: "${message.body}"
         })
         window.onunload = function(){
             window.opener.location.reload();
         };
     </script>
-
+</c:if>
 <div class="container">
 <form class="form" action="InserisciOrarioDBServlet" method="post" onsubmit="return validateOrario()">
 

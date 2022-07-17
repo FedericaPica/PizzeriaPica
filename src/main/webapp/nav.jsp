@@ -1,5 +1,5 @@
 
-<nav id="navBar">
+<nav id="navBar" style="height: 100%">
     <ul>
         <c:set var = "utente" value = "${utente}"/>
 

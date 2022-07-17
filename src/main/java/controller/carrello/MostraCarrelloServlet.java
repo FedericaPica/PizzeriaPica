@@ -12,24 +12,34 @@ import model.dao.ProdottoDAO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "MostraCarrelloServlet", value = "/MostraCarrelloServlet")
 public class MostraCarrelloServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        Utente utente = (Utente) session.getAttribute("utente");
-        int idUtente = utente.getId();
 
-        CarrelloDAO cDao = new CarrelloDAO();
-        Carrello carrelloDb = cDao.doRetrieveByUtenteidAttivo(idUtente);
-        ProdottoCarrelloDAO pcDao = new ProdottoCarrelloDAO();
-        ArrayList<CarrelloVisualizzato> prodottiCarrelloDb = (ArrayList<CarrelloVisualizzato>) pcDao.doRetrieveByCarrelloIdVisualizzato(carrelloDb.getId());
 
         PrintWriter out = new PrintWriter(response.getWriter());
         Gson gson = new Gson();
-        String json = gson.toJson(prodottiCarrelloDb);
+        String json = "";
+
+        if (session.getAttribute("utente") != null) {
+            Utente utente = (Utente) session.getAttribute("utente");
+            int idUtente = utente.getId();
+            CarrelloDAO cDao = new CarrelloDAO();
+            Carrello carrelloDb = cDao.doRetrieveByUtenteidAttivo(idUtente);
+            ProdottoCarrelloDAO pcDao = new ProdottoCarrelloDAO();
+            ArrayList<CarrelloVisualizzato> prodottiCarrelloDb = (ArrayList<CarrelloVisualizzato>) pcDao.doRetrieveByCarrelloIdVisualizzato(carrelloDb.getId());
+            json = gson.toJson(prodottiCarrelloDb);
+        } else {
+            List<Prodotto> prodottiCarrelloSession = (ArrayList<Prodotto>) session.getAttribute("prodottiCarrello");
+            json = gson.toJson(prodottiCarrelloSession);
+        }
+
         out.write(json);
 
     }

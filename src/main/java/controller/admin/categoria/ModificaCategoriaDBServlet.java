@@ -10,9 +10,11 @@ import model.dao.CategoriaDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import static model.beans.MessageType.INFO;
-import static model.beans.MessageType.SUCCESS;
+import static model.beans.MessageType.*;
 
 @WebServlet(name = "ModificaCategoriaDBServlet", value = "/ModificaCategoriaDBServlet")
 public class ModificaCategoriaDBServlet extends HttpServlet {
@@ -23,28 +25,41 @@ public class ModificaCategoriaDBServlet extends HttpServlet {
         String nome = request.getParameter("nome");
         int priority = Integer.parseInt(request.getParameter("priority"));
         Message message = new Message("", "", INFO);
-
-        categoria.setId(id);
-        categoria.setNome(nome);
-        categoria.setPriority(priority);
-        System.out.println(categoria.getPriority());
         CategoriaDAO dao = new CategoriaDAO();
 
+        try {
+            if (nome == null || request.getParameter("priority") == null)
+                throw new Exception("Tutti i campi sono obbligatori.");
+            if (dao.doRetrieveByNome(nome) != null)
+                throw new Exception("Questa categoria già esiste.");
+            ModificaCategoriaDBServlet.validateField("Nome", Optional.of(nome), "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", 3, 255);
+            ModificaCategoriaDBServlet.validateField("Priority", Optional.of(request.getParameter("priority")), "^\\d+$", 1, 10);
 
-        if(dao.doRetrieveByPriority(priority) != null) {
-            dao.doIncreasePriority(priority);
+        } catch (Exception e) {
+            message.setBody(e.getMessage());
+            message.setTitle("Errore");
+            message.setType(ERROR);
         }
-        dao.doUpdate(categoria);
+        if (!message.getType().equals("ERROR")) {
+            categoria.setId(id);
+            categoria.setNome(nome);
+            categoria.setPriority(priority);
 
-        List<Categoria> listaCategorie = new ArrayList<Categoria>();
-        listaCategorie = dao.doRetrieveAll();
-        getServletContext().removeAttribute("categorie");
-        getServletContext().setAttribute("categorie", listaCategorie);
+            if (dao.doRetrieveByPriority(priority) != null) {
+                dao.doIncreasePriority(priority);
+            }
+            dao.doUpdate(categoria);
+
+            List<Categoria> listaCategorie = new ArrayList<Categoria>();
+            listaCategorie = dao.doRetrieveAll();
+            getServletContext().removeAttribute("categorie");
+            getServletContext().setAttribute("categorie", listaCategorie);
 
 
-        message.setType(SUCCESS);
-        message.setBody("Modifica effettuata.");
-        message.setTitle("Ok!");
+            message.setType(SUCCESS);
+            message.setBody("Modifica effettuata.");
+            message.setTitle("Ok!");
+        }
         request.setAttribute("message", message);
 
         request.setAttribute("check", "categoria");
@@ -60,5 +75,22 @@ public class ModificaCategoriaDBServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
+    }
+
+    private static void validateField(String fieldName, Optional<String> fieldValue, String regex, int minLength, int maxLength) throws Exception{
+        final Pattern pattern = Pattern.compile(regex);
+        String realValue = null;
+        if (fieldValue.isPresent())
+            realValue = fieldValue.get();
+
+        final Matcher matcher = pattern.matcher(realValue);
+
+        if (realValue.isEmpty() || realValue.length() < minLength || realValue.length() > maxLength)
+            throw new Exception("Il campo " + fieldName + " ha una lunghezza non regolare.");
+
+
+        if (!matcher.find())
+            throw new Exception("Il campo " + fieldName +  " non rispetta il formato richiesto.");
+
     }
 }

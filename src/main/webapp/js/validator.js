@@ -11,6 +11,9 @@ const passwordA = document.querySelector('#passwordIdAccedi');
 //Categoria
 const nomeC = document.querySelector('#nomeIdInsert');
 const priorityC = document.querySelector('#priorityIdInsert');
+
+const nomeCU = document.querySelector('#nomeIdUpdate');
+const priorityCU = document.querySelector('#priorityIdUpdate');
 //Orario
 const orario =document.querySelector('#orarioId');
 //Festivo
@@ -20,6 +23,9 @@ const nomeProdottoI = document.querySelector("#nomeIdInsert");
 const prezzoProdottoI = document.querySelector("#prezzoIdInsert");
 const descrizioneProdottoI = document.querySelector('#descrizioneIdInsert');
 const scontoProdottoI = document.querySelector('#scontoIdInsert');
+//Ordine
+const data = document.querySelector('#dataRitiro');
+const ora = document.querySelector('#oraRitiro');
 
 const nomeProdottoU = document.querySelector("#nomeIdUpdate");
 const prezzoProdottoU = document.querySelector("#prezzoIdUpdate");
@@ -61,6 +67,18 @@ function validateLogin(){
 function validateInsertCategoria(){
     let isNomeValid = checkNome(nomeC),
         isPriorityValid = checkPriority(priorityC);
+
+    let isFormValid =
+        isNomeValid &&
+        isPriorityValid;
+
+    return isFormValid;
+}
+
+
+function validateUpdateCategoria(){
+    let isNomeValid = checkNome(nomeCU),
+        isPriorityValid = checkPriority(priorityCU);
 
     let isFormValid =
         isNomeValid &&

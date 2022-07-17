@@ -27,6 +27,8 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         try {
+            if (email == null || password == null)
+                throw new Exception("Tutti i campi sono obbligatori.");
             LoginServlet.validateField("Email", Optional.of(email), "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", 3, 255);
             LoginServlet.validateField("Password", Optional.of(password), "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})", 3, 255);
         } catch (Exception e) {

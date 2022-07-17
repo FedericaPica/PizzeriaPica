@@ -2,6 +2,7 @@ package model.dao;
 
 import model.ConPool;
 import model.beans.Categoria;
+import model.beans.Festivi;
 import model.beans.Orario;
 import model.beans.Utente;
 
@@ -39,6 +40,43 @@ public class OrarioDAO {
             ps.setInt(1, id);
             ps.execute();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Orario doRetrieveByOrario(String orario) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id, orario FROM orario WHERE orario=?");
+            ps.setString(1, orario);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Orario f = new Orario();
+                f.setId(rs.getInt("id"));
+                f.setOrario(rs.getTime("orario"));
+                return f;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Orario> doRetrieveByOrdineRitiroDt(String dataOrdine) {
+        ArrayList<Orario> orarioList = new ArrayList<>();
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id, TIME_FORMAT(orario, \"%H:%i:%s\") as orario from orario WHERE orario NOT IN (select TIME(ritiroDt) as orario FROM ordine WHERE DATE(ritiroDt) = ? AND stato = 'attivo' ORDER BY ritiroDt ASC) ORDER BY orario ASC");
+            ps.setString(1, dataOrdine);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Orario f = new Orario();
+                f.setId(rs.getInt("id"));
+                f.setOrario(rs.getTime("orario"));
+                orarioList.add(f);
+            }
+            return orarioList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

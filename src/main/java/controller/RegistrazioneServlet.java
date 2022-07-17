@@ -26,12 +26,15 @@ public class RegistrazioneServlet extends HttpServlet {
         String passwordConferma = request.getParameter("passwordConferma");
         String telefono = request.getParameter("telefono");
         Message message = new Message("", "", INFO);
+        UtenteDAO dao = new UtenteDAO();
 
         HttpSession session = request.getSession(true);
 
         try {
             if (nome == null || cognome == null ||  email == null || password == null || passwordConferma == null || telefono == null)
                 throw new Exception("Tutti i campi sono obbligatori.");
+            if (dao.doRetrieveByEmail(email) != null)
+                throw new Exception("Questa email è già stata registrata.");
             RegistrazioneServlet.validateField("Nome", Optional.of(nome), "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", 3, 255);
             RegistrazioneServlet.validateField("Cognome", Optional.of(cognome), "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", 3, 255);
             RegistrazioneServlet.validateField("Email", Optional.of(email), "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", 5, 255);
@@ -53,13 +56,10 @@ public class RegistrazioneServlet extends HttpServlet {
             utente.setEmail(email);
             utente.setPassword(password);
             utente.setTelefono(telefono);
-
-            UtenteDAO dao = new UtenteDAO();
             dao.doSave(utente);
 
-            session.setAttribute("utente", utente);
             message.setType(SUCCESS);
-            message.setBody("Registrazione effettuata correttamente.");
+            message.setBody("Registrazione effettuata correttamente. Ora puoi effettuare il login.");
             message.setTitle("Ok!");
         }
 

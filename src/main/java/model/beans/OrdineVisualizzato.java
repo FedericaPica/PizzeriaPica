@@ -7,10 +7,27 @@ public class OrdineVisualizzato {
     private double prezzoAcquisto;
     private String nomeProdotto;
     private int quantita;
+    private int prodottoId;
+    private int carrelloId;
 
     public OrdineVisualizzato() {
     }
 
+    public int getProdottoId() {
+        return prodottoId;
+    }
+
+    public void setProdottoId(int prodottoId) {
+        this.prodottoId = prodottoId;
+    }
+
+    public int getCarrelloId() {
+        return carrelloId;
+    }
+
+    public void setCarrelloId(int carrelloId) {
+        this.carrelloId = carrelloId;
+    }
     public int getOrdineId() {
         return ordineId;
     }

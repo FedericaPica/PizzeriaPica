@@ -8,7 +8,7 @@
     <%@include file="../../../includes.html"%>
     <link rel="stylesheet" href="css/admin.css" type="text/css">
     <link rel="stylesheet" href="css/validator.css">
-    <title>Modifica categoria</title>
+    <title>categoria</title>
     <style>
         table {
             max-width: 500px;
@@ -23,7 +23,7 @@
 <body>
 
 <c:set var = "mess"  value = "${message.type}"/>
-<c:if test = "${mess == 'SUCCESS'}">
+<c:if test = "${mess != null}">
     <script>
     $(document).ready(function() {
         $(".swal2-confirm").click(function() {
@@ -41,55 +41,72 @@
     </script>
 </c:if>
 
+<div class="container">
 <c:set var = "flag" value = "${flag}"/>
     <c:choose>
         <c:when test="${flag == 'insert'}">
-            <form action="InserisciCategoriaDBServlet" method="post">
+            <form action="InserisciCategoriaDBServlet" method="post" onsubmit="return validateInsertCategoria()">
         </c:when>
 
         <c:when test="${flag == 'update'}">
-            <form action="ModificaCategoriaDBServlet" method="post">
+            <form action="ModificaCategoriaDBServlet" method="post" onsubmit="return validateUpdateCategoria()">
         </c:when>
     </c:choose>
 
-            <table>
-                <tr>
-
                     <c:choose>
                         <c:when test="${flag == 'insert'}">
-                            <td><label for="nomeIdInsert"> Nome: </label></td>
-                            <td><input type="text" id="nomeIdInsert" name="nome"></td>
+                            <div class="form-field">
+                            <label for="nomeIdInsert"> Nome: </label>
+                            <input type="text" id="nomeIdInsert" name="nome" autocomplete="off">
+                                <small></small>
+                            </div>
                         </c:when>
 
                         <c:when test="${flag == 'update'}">
-                            <td><label for="nomeIdUpdate"> Nome: </label></td>
-                            <td><input type="text" id="nomeIdUpdate" name="nome" value="${categoria.nome}"></td>
+                            <div class="form-field">
+                            <label for="nomeIdUpdate"> Nome: </label>
+                            <input type="text" id="nomeIdUpdate" name="nome" value="${categoria.nome}" autocomplete="off">
+                            <small></small>
+                            </div>
                         </c:when>
                     </c:choose>
 
-                </tr>
-                <tr>
+
                     <c:choose>
                         <c:when test="${flag == 'insert'}">
-                            <td><label for="priorityIdInsert"> Priorit&agrave;: </label></td>
-                            <td><input type="number" id="priorityIdInsert" name="priority"></td>
+                            <div class="form-field">
+                            <label for="priorityIdInsert"> Priorit&agrave;: </label>
+                            <input type="number" id="priorityIdInsert" name="priority" autocomplete="off">
+                            <small>
+                            </small>
+                            </div>
                         </c:when>
 
                         <c:when test="${flag == 'update'}">
-                            <td><label for="priorityIdUpdate"> Priorit&agrave;: </label></td>
-                            <td><input type="number" id="priorityIdUpdate" name="priority" value="${categoria.priority}"></td>
+                            <div class="form-field">
+                            <label for="priorityIdUpdate"> Priorit&agrave;: </label>
+                            <input type="number" id="priorityIdUpdate" name="priority" value="${categoria.priority}" autocomplete="off">
+                                <small></small>
+                            </div>
                         </c:when>
                     </c:choose>
 
-                </tr>
-                <tr>
-                    <td style="width: 100%; border:none; text-align: right"><input type="submit" value="Salva"></td>
+                    <div class="form-field">
+                    <input type="submit" value="Salva">
+                    </div>
                     <c:if test="${flag == 'update'}">
                         <input type="hidden" name="id" value="${categoria.id}">
                     </c:if>
-                </tr>
-            </table>
-        </form>
+            <c:choose>
+            <c:when test="${flag == 'insert'}">
+            </form>
+            </c:when>
+
+            <c:when test="${flag == 'update'}">
+            </form>
+    </c:when>
+    </c:choose>
+   </div>
 
 <script src="js/validator.js"></script>
 </body>

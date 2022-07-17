@@ -38,7 +38,6 @@ public class InserisciFestivoDBServlet extends HttpServlet {
         if (!message.getType().equals("ERROR")) {
             try {
                 giornoF = new SimpleDateFormat("yyyy-MM-dd").parse(giorno);
-                System.out.println(giornoF);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -69,10 +68,13 @@ public class InserisciFestivoDBServlet extends HttpServlet {
         final Pattern pattern = Pattern.compile(regex);
         String realValue = fieldValue.orElse(null);
         final Matcher matcher = pattern.matcher(realValue);
+        FestivoDAO dao = new FestivoDAO();
+
+        if (dao.doRetrieveByData(realValue) != null)
+            throw new Exception("Il giorno inserito è già presente tra i festivi.");
 
         if (fieldValue == null || fieldValue.equals(""))
             throw new Exception("Il campo " + fieldName + " ha una lunghezza non regolare.");
-
 
         if (!matcher.find())
             throw new Exception("Il campo " + fieldName +  " non rispetta il formato richiesto.");

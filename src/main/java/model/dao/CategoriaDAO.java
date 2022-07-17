@@ -49,6 +49,25 @@ public class CategoriaDAO {
         }
     }
 
+    public Categoria doRetrieveByNome(String nome) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id, nome, priority FROM categoria WHERE nome=?");
+            ps.setString(1, nome);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Categoria c = new Categoria();
+                c.setId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                c.setPriority(rs.getInt("priority"));
+                return c;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String doRetrieveName(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =

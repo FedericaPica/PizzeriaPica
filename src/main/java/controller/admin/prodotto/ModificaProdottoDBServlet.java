@@ -24,7 +24,8 @@ public class ModificaProdottoDBServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Message message = new Message("", "", INFO);
         try {
-
+            if (request.getParameter("descrizione") == null || request.getParameter("prezzo") == null ||  request.getParameter("nome") == null || request.getParameter("sconto") == null)
+                throw new Exception("Tutti i campi sono obbligatori.");
             ModificaProdottoDBServlet.validateField("descrizione", Optional.of(request.getParameter("descrizione")), "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", 3, 500);
             ModificaProdottoDBServlet.validateField("prezzo", Optional.of(request.getParameter("prezzo")), "^[0-9]+(\\.)[0-9]+$", 0, 255);
             ModificaProdottoDBServlet.validateField("nome", Optional.of(request.getParameter("nome")), "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", 3, 255);

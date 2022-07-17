@@ -126,4 +126,23 @@ public class OrdineDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public List<Ordine> doRetrieveByDataRitiro(String dataRitiro) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id FROM ordine WHERE ritiroDt=? ORDER BY ordine.id DESC");
+            ps.setString(1, dataRitiro);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Ordine> ordini = new ArrayList<>();
+
+            while (rs.next()) {
+                Ordine o = new Ordine();
+                o.setId(rs.getInt("id"));
+                ordini.add(o);
+            }
+            return (ordini.isEmpty()) ? null : ordini;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

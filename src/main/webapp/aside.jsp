@@ -3,43 +3,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <aside>
+    <ul><li><div style="left:0px; margin:0px; color:white;" class="shadows">
 
-    <ul>
-        <li> <div style="left:0px; margin:0px; color:white;" class="shadows">
-        <table>
-            <tr>
-                <th></th>
-                <th>Prezzo</th>
-                <th>Sconto</th>
-            </tr>
-        </table>
-        </div></li>
-        <c:set var = "utente"  value = "${utente}"/>
-        <c:if test= "${utente == null}">
-
-            <ul id="prodottiCarrelloSession">
-                <c:forEach items="${prodottiCarrello}" var="prodotto">
-                    <li> ${prodotto.nome} ${prodotto.prezzo} ${prodotto.sconto}</li>
-                </c:forEach>
-            </ul>
-
-        </c:if>
-
+        <table id="carrello-table" style="width:100%; text-align:center;">
+            <c:if test="${utente == null}">
+                <script>mostraCarrelloTableAnonimo();</script>
+            </c:if>
         <c:if test= "${utente != null}">
-            <ul id="prodottiCarrelloDb">
 
-            </ul>
-
-            <script>
-                mostraCarrelloAside();
-            </script>
+            <script> mostraCarrelloTableUtente();</script>
 
         </c:if>
+        </table>
+    </div>
+        <li id="totale" style="display: none;"> </li>
 
-        <li id="totaleSession">
-        </li>
-
-        <li id="order"> <a href="ProcediOrdineServlet"> Procedi all'ordine </a></li>
+        <li id="order" style="display: none;"> <a href="ProcediOrdineServlet"> Procedi all'ordine </a></li>
     </ul>
 
 

@@ -39,16 +39,14 @@
             confirmButtonText: 'S&igrave;',
             cancelButtonText: 'No',
         }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 Swal.fire('Aggiunto!', '', 'success')
                 $.getJSON("AggiungiAlCarrelloServlet", {idProdotto: idProdotto}, function (data) {
                     <% Utente utente = (Utente)session.getAttribute("utente");
                     if (utente == null) { %>
-                    $("#prodottiCarrelloSession").append("<li>" + data.nome + data.prezzo + data.sconto + "% </li>");
-                    $("#totaleSession").html("Totale:" + data.totale);
+                    mostraCarrelloTableAnonimo();
                     <% } else { %>
-                    mostraCarrelloAside();
+                    mostraCarrelloTableUtente();
                     <% } %>
                 });
 
@@ -59,13 +57,23 @@
     function mostraListe(idCategoria) {
         var id = idCategoria;
         $.getJSON("ListaProdottiServlet", {idCategoria: idCategoria}, function(data){
+
+            var concat;
             if (data == null) {
                 $("#li" + id).append("<p> Nessun prodotto presente. </p>");
             } else {
                 for (let i = 0; i < data.length; i++) {
+                if (data[i].sconto == null || data[i].sconto == 0) {
+                    concat = "<b> " + (Math.round(data[i].prezzo * 100) / 100).toFixed(2) + " &euro; </b>";
+
+                } else {
+                    concat = "<s style='color:red;'>" + (Math.round(data[i].prezzo * 100) / 100).toFixed(2) + "</s> <b style'color:white'>" +  (data[i].prezzo - ((data[i].prezzo*data[i].sconto)/100))+ " &euro; </b>";
+                    //concat = "Scontato";
+                }
+
                     $("#li" + id).append('<p class="prodotto" onclick="addCart(' + data[i].id + ')">' +
                         '<span style="font-size: 25px; color:white;">' + data[i].nome + '</span>' +
-                        '<b> ' + (Math.round(data[i].prezzo * 100) / 100).toFixed(2) + ' &euro; </b>' +
+                        concat +
                         ' <br>' + data[i].descrizione + '</p>');
 
                 }

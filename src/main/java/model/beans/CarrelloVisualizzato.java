@@ -6,6 +6,7 @@ public class CarrelloVisualizzato {
     private int sconto;
     private int quantita;
     private double totale;
+    private int prodottoId;
 
     public CarrelloVisualizzato() {
     }
@@ -48,5 +49,13 @@ public class CarrelloVisualizzato {
 
     public void setTotale(double totale) {
         this.totale = totale;
+    }
+
+    public int getProdottoId() {
+        return prodottoId;
+    }
+
+    public void setProdottoId(int prodottoId) {
+        this.prodottoId = prodottoId;
     }
 }

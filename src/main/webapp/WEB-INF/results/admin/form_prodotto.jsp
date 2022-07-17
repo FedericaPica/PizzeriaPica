@@ -145,7 +145,7 @@
                 <c:when test="${flag == 'update'}">
                 </form>
                     </c:when>
-                    </c:choose>
+           </c:choose>
 
 </div>
 <script src="js/validator.js" ></script>
