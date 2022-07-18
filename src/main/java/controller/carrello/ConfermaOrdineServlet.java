@@ -36,6 +36,8 @@ public class ConfermaOrdineServlet extends HttpServlet {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         Date date = null;
         try {
+            if (request.getParameter("dataRitiro").equals("") || request.getParameter("oraRitiro").equals(""))
+                throw new Exception("Tutti i campi sono obbligatori.");
             OrdineDAO ordineDAO = new OrdineDAO();
             Date oggi = new Date();
             Date ordineDt = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dataRitiro"));

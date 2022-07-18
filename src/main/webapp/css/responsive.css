@@ -1,1 +1,158 @@
 
+@media only screen and (max-width: 575px) {
+    .left {
+        width: 5%;
+        float:left;
+        position:sticky;
+        top:10px;
+    }
+    .center {
+        width:70%;
+        float:left;
+        position:relative;
+        z-index: -1;
+    }
+    #carrelloMenu {
+        display: block;
+    }
+
+    nav li {
+        font-size: 15px;
+    }
+    /*.tilesWrap li h3 {*/
+    /*    font-size: 15px;*/
+    /*}*/
+    /*.tilesWrap li p {*/
+    /*    font-size: 17px;*/
+    /*}*/
+    nav ul {
+        display:none;
+    }
+
+    #header {
+        width: 100%;
+    }
+    .mySlides{
+        width: 80%;
+        height:10%;
+        float:left;
+    }
+    .foto {
+        height: 100px;
+        width: 170px;
+    }
+    #tabellaOrdine {
+        font-size:70%;
+    }
+    #dataRitiro, #oraRitiro {
+        width:30%;
+    }
+
+}
+
+@media only screen and (min-width: 576px) {
+    .left {
+        width: 30%;
+        float:left;
+        position:sticky;
+        top:10px;
+    }
+    .center {
+        width:50%;
+        float:left;
+        left:5%;
+        position:relative;
+        z-index: -1;
+    }
+
+    #carrelloMenu {
+        display: none;
+    }
+    nav li{
+        font-size: 70%;
+    }
+
+    /*.tilesWrap li h3 {*/
+    /*    font-size: 20px;*/
+    /*}*/
+    /*.tilesWrap li p {*/
+    /*    font-size: 13px;*/
+    /*}*/
+    nav ul {
+        display:block;
+    }
+
+    #header {
+        width: 100%;
+    }
+    .mySlides{
+        width: 80%;
+        height:10%;
+        float:left;
+    }
+    .foto {
+        height: 150px;
+        width: 250px;
+    }
+    #tabellaOrdine {
+        font-size:70%;
+    }
+    #dataRitiro, #oraRitiro {
+        width:50%;
+    }
+
+}
+
+@media only screen and (min-width: 992px) {
+    .left {
+        width: 20%;
+        float: left;
+        position: sticky;
+        top: 10px;
+    }
+
+    .center {
+        width: 70%;
+        float: left;
+        left:15%;
+    }
+    .hamburger-menu {
+        display: none;
+    }
+
+
+
+    nav li{
+        font-size: 20px;
+    }
+
+    /*.tilesWrap li h3 {*/
+    /*    font-size: 30px;*/
+    /*}*/
+    /*.tilesWrap li p {*/
+    /*    font-size: 17px;*/
+    /*}*/
+    nav ul {
+        display:block;
+    }
+
+    #header {
+        width: 100%;
+    }
+    .mySlides{
+        width: 80%;
+        height:10%;
+        float:left;
+    }
+    .foto {
+        height: 250px;
+        width: 350px;
+    }
+    #tabellaOrdine {
+        font-size:90%;
+    }
+
+    #dataRitiro, #oraRitiro {
+        width:70%;
+    }
+}

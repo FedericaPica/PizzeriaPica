@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     //Categorie:
 
-    $("#categorieA").on("click", function () {
+    $(".categorieA").on("click", function () {
         $("#mostra").empty()
         $.getJSON("MostraCategorieServlet", function (data) {
             $("#mostra").append("<tr> <th>Categoria</th> <th>Priorit&agrave;</th> <th> </th></tr>");
@@ -51,14 +51,14 @@ $(document).ready(function() {
         });
     });
 
-    $("#inserisciCategoria").click(function () {
+    $(".inserisciCategoria").click(function () {
         myPopup("InserisciCategoriaServlet", "Inserisci", 600, 400);
     })
 
     // Utenti
 
 
-    $("#utentiA").on("click", function () {
+    $(".utentiA").on("click", function () {
         $("#mostra").empty()
         $.getJSON("MostraUtentiServlet", function (data) {
             $("#mostra").append("<tr> <th>Nome</th> <th>Cognome</th> <th>Email</th> <th>Telefono</th> <th> </th></tr>");
@@ -88,7 +88,7 @@ $(document).ready(function() {
 
     //Ordini
 
-    $("#ordiniA").on("click", function () {
+    $(".ordiniA").on("click", function () {
         $("#mostra").empty()
         $.getJSON("MostraOrdiniServlet", function (data) {
             $("#mostra").append("<tr> <th>Id</th> <th>Ritiro</th> <th>Totale</th> <th>Cliente</th> <th>Stato</th> <th>Prodotti</th> <th style='width:220px;'> </th></tr>");
@@ -144,7 +144,7 @@ $(document).ready(function() {
     });
 
     //Festivi
-    $("#festiviA").on("click", function () {
+    $(".festiviA").on("click", function () {
         $("#mostra").empty()
         $.getJSON("MostraFestiviServlet", function (data) {
             $("#mostra").append("<tr> <th>Giorni di chiusura</th><th> </th></tr>");
@@ -172,14 +172,14 @@ $(document).ready(function() {
         });
     });
 
-    $("#inserisciFestivo").click(function () {
+    $(".inserisciFestivo").click(function () {
         myPopup("InserisciFestivoServlet", "Inserisci", 600, 400);
     })
 
 
     //Orari
 
-    $("#orariA").on("click", function () {
+    $(".orariA").on("click", function () {
         $("#mostra").empty()
         $.getJSON("MostraOrariServlet", function (data) {
             $("#mostra").append("<tr> <th>Slot orari</th><th> </th></tr>");
@@ -207,7 +207,7 @@ $(document).ready(function() {
         });
     });
 
-    $("#inserisciOrario").click(function () {
+    $(".inserisciOrario").click(function () {
         myPopup("InserisciOrarioServlet", "Inserisci", 600, 400);
     })
 

@@ -19,6 +19,7 @@
        table {
            text-align: center;
            color: white;
+           max-width:100%;
        }
        td {
            padding: 7px;
@@ -45,7 +46,7 @@
 </head>
 <body>
 <%@include file="/header.jsp"%>
-<div class="left" style="width:20%; float:left; position:sticky; top:10px;">
+<div class="left">
 <%@include file="/nav.jsp"%>
 </div>
 <c:set var = "mess"  value = "${message.type}"/>
@@ -67,9 +68,9 @@
     </script>
 </c:if>
 
-<div class="center shadows" style="width:70%; float:left;">
+<div class="center shadows" >
     <form action="ConfermaOrdineServlet" method="post" onsubmit="return validateOrdine()">
-  <table>
+  <table id="tabellaOrdine">
 
         <tr>
               <td>

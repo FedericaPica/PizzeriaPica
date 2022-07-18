@@ -1,10 +1,9 @@
 <%@ page import="model.beans.Message" %>
-<link rel="stylesheet" href="css/header.css" type="text/css">
 <header id="header">
 
 <div class="slideshow-container" style="background-color: #F18F01; max-height: 10%; width:100%;">
     <div style="width:10%; float: left; margin-left:5%; margin-right:5%;">
-        <img src="images/ppica.png" style="width: 100%; height:auto;">
+        <a href="index.jsp"><img src="images/ppica.png" style="width: 100%; height:auto;"></a>
     </div>
         <div class="mySlides">
             <img class="header-img" src="images/header.png" style="width: 100%">

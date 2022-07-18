@@ -83,7 +83,6 @@
     }
 </script>
 
-    <a href="Temporanea"> admin </a>
 
 <div class="left" >
     <%@include file="nav.jsp"%>

@@ -47,7 +47,7 @@
 </div>
 
 <div class="center">
-<div id="accedi" class="container" style="float:left">
+<div id="accedi" class="container" style="float:left;position:relative; z-index: 97;">
 
     <form id="formAccedi" class="form" onsubmit="return validateLogin()" action="LoginServlet"  method="post" >
         <div class="form-field">

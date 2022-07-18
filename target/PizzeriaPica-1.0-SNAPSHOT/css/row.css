@@ -45,6 +45,8 @@ nav li:hover, nav li a:hover, #order:hover{
 
 /* section */
 .tilesWrap {
+    position:relative;
+    z-index: 97;
     padding: 0;
     list-style: none;
     text-align: center;
@@ -109,7 +111,6 @@ nav li:hover, nav li a:hover, #order:hover{
     text-align: left;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
     position: relative;
-    left: 150px;
     max-width: 700px;
     margin: 30px;
 }

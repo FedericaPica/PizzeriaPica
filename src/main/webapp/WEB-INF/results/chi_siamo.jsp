@@ -19,8 +19,7 @@
         }
         .foto {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.39);
-            height: 250px;
-            width: 350px;
+
             position:relative;
         }
         #maps {
@@ -38,12 +37,12 @@
 </head>
 <body>
 <%@include file="../../header.jsp"%>
-<div class="left" style="width:20%; float: left; position:sticky; top:10px;">
+<div class="left">
 <%@include file="../../nav.jsp"%>
 </div>
 
 
-<div id="chisiamo" class="center shadows" style="width:70%; float: left;">
+<div id="chisiamo" class="center shadows" style="position:relative; z-index: -1;">
     <b id="b"> Un punto di riferimento nella città di Benevento, da oltre quarant'anni.</b>
     <img class="foto" src="images/famiglia.jpeg" style="float: right; right: -5%;
             margin-top: 3%;">
@@ -66,7 +65,7 @@
         <li> sab 18:00-22:00</li>
         <li> domenica chiuso</li>
     </ol>
-    <img class="foto" src="images/papy.jpeg" style="float: left; left: -5%; width: 400px">
+    <img class="foto" src="images/papy.jpeg" style="float: left; left: -5%;">
     <p style="color: #F18F01"> <b>INGREDIENTI </b></p>
     <p> <b>Impasto per pizze, calzoni, involtini e focacce: </b> farina di frumento tipo "00", acqua,
     lievito di birra, sale.</p>

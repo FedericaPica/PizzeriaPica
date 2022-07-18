@@ -31,8 +31,7 @@ function mostraCarrelloTableAnonimo() {
             $("#carrello-table").html("<tr id='carrelloVuoto'><th>Carrello vuoto</th></tr>");
             $("#totale").css("display", "none");
             $("#order").css("display", "none");
-        }
-        if (data.length != 0) {
+        } else {
             $("#carrello-table").empty();
             $("#carrello-table").append("<tr>\n" +
                 "                <th></th>\n" +

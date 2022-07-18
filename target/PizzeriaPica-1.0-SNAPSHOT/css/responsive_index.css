@@ -8,15 +8,13 @@
     .center {
         width:90%;
         float:left;
+        position:relative;
+        z-index: -1;
     }
-    #burgerIndex {
-        display:block;
-    }
+
     .right {
-        width:5%;
+        width:90%;
         float:left;
-        position:sticky;
-        top:10px;
     }
     nav li, aside li {
         font-size: 15px;
@@ -30,9 +28,7 @@
     nav ul {
         display:none;
     }
-    aside ul {
-        display:none;
-    }
+
     #order, #totale {
         font-size:  80%;
     }
@@ -43,6 +39,9 @@
         width: 80%;
         height:10%;
         float:left;
+    }
+    #carrelloMenu {
+        display: block;
     }
 
 }
@@ -57,10 +56,10 @@
     .center {
         width:65%;
         float:left;
+        position:relative;
+        z-index: -1;
     }
-    #burgerIndex {
-        display:block;
-    }
+
     .right {
         width:30%;
         float:left;
@@ -82,9 +81,7 @@
     nav ul {
         display:none;
     }
-    aside ul {
-        display:block;
-    }
+
     #header {
         width: 100%;
     }
@@ -92,6 +89,9 @@
         width: 80%;
         height:10%;
         float:left;
+    }
+    #carrelloMenu {
+        display: none;
     }
 
 }
@@ -108,8 +108,8 @@
         width: 50%;
         float: left;
     }
-    #burgerIndex {
-        display:none;
+    .hamburger-menu {
+        display: none;
     }
 
     .right {
@@ -132,9 +132,7 @@
     nav ul {
         display:block;
     }
-    aside ul {
-        display:block;
-    }
+
     #order, #totale {
         font-size:  20px;
     }

@@ -10,14 +10,6 @@
     <link rel="stylesheet" href="css/responsive.css">
     <title> I miei ordini </title>
     <style>
-        #mieiOrdini {
-            background: rgba(0, 0, 0, 0.7);
-            text-align: left;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
-            position: relative;
-            left: 150px;
-            max-width: 700px;
-        }
         table {
             text-align: center;
             color: white;
@@ -34,10 +26,10 @@
 
 <%@include file="../../header.jsp"%>
 
-<div class="left" style="float:left; width:20%">
+<div class="left">
             <%@include file="../../nav.jsp"%>
 </div>
-<div class="center shadows" style="width:70%; float:left;">
+<div class="center shadows">
 <c:forEach items="${map}" var="ordine">
     <table style="border: 3px solid #F18F01;">
 
