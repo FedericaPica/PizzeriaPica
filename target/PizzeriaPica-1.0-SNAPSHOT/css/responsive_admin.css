@@ -1,4 +1,7 @@
 @media only screen and (max-width: 575px) {
+    .hamburger-menu {
+        display: block;
+    }
     .left {
         width: 5%;
         float: left;
@@ -50,6 +53,9 @@
 }
 
 @media only screen and (min-width: 576px) {
+    .hamburger-menu {
+        display: none;
+    }
     .left {
         width: 30%;
         float: left;
@@ -98,6 +104,9 @@
 }
 
 @media only screen and (min-width: 992px) {
+    .hamburger-menu {
+        display: none;
+    }
     .left {
         width: 40%;
         float: left;
